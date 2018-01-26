@@ -41,24 +41,28 @@
             this.menuPanel.Controls.Add(this.panel2);
             this.menuPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.menuPanel.Location = new System.Drawing.Point(0, 0);
+            this.menuPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.menuPanel.Name = "menuPanel";
-            this.menuPanel.Size = new System.Drawing.Size(377, 40);
+            this.menuPanel.Size = new System.Drawing.Size(503, 49);
             this.menuPanel.TabIndex = 0;
+            this.menuPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.menuPanel_Paint);
             // 
             // archiveButton
             // 
-            this.archiveButton.Location = new System.Drawing.Point(12, 9);
+            this.archiveButton.Location = new System.Drawing.Point(16, 11);
+            this.archiveButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.archiveButton.Name = "archiveButton";
-            this.archiveButton.Size = new System.Drawing.Size(75, 23);
+            this.archiveButton.Size = new System.Drawing.Size(100, 28);
             this.archiveButton.TabIndex = 1;
             this.archiveButton.Text = "Archive";
             this.archiveButton.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
-            this.panel2.Location = new System.Drawing.Point(0, 46);
+            this.panel2.Location = new System.Drawing.Point(0, 57);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(376, 524);
+            this.panel2.Size = new System.Drawing.Size(501, 645);
             this.panel2.TabIndex = 1;
             // 
             // contactListPanel
@@ -66,47 +70,53 @@
             this.contactListPanel.BackColor = System.Drawing.Color.LightGray;
             this.contactListPanel.Controls.Add(this.contactFlowPanel);
             this.contactListPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.contactListPanel.Location = new System.Drawing.Point(0, 40);
+            this.contactListPanel.Location = new System.Drawing.Point(0, 49);
+            this.contactListPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.contactListPanel.Name = "contactListPanel";
-            this.contactListPanel.Size = new System.Drawing.Size(377, 549);
+            this.contactListPanel.Size = new System.Drawing.Size(503, 676);
             this.contactListPanel.TabIndex = 1;
             // 
             // contactFlowPanel
             // 
             this.contactFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.contactFlowPanel.Location = new System.Drawing.Point(0, 0);
+            this.contactFlowPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.contactFlowPanel.Name = "contactFlowPanel";
-            this.contactFlowPanel.Padding = new System.Windows.Forms.Padding(5, 10, 5, 0);
-            this.contactFlowPanel.Size = new System.Drawing.Size(377, 549);
+            this.contactFlowPanel.Padding = new System.Windows.Forms.Padding(7, 12, 7, 0);
+            this.contactFlowPanel.Size = new System.Drawing.Size(503, 676);
             this.contactFlowPanel.TabIndex = 0;
+            this.contactFlowPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.contactFlowPanel_Paint);
             // 
             // footerPanel
             // 
             this.footerPanel.Controls.Add(this.logOutButton);
             this.footerPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.footerPanel.Location = new System.Drawing.Point(0, 589);
+            this.footerPanel.Location = new System.Drawing.Point(0, 725);
+            this.footerPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.footerPanel.Name = "footerPanel";
-            this.footerPanel.Size = new System.Drawing.Size(377, 38);
+            this.footerPanel.Size = new System.Drawing.Size(503, 47);
             this.footerPanel.TabIndex = 2;
             // 
             // logOutButton
             // 
-            this.logOutButton.Location = new System.Drawing.Point(299, 3);
+            this.logOutButton.Location = new System.Drawing.Point(399, 4);
+            this.logOutButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.logOutButton.Name = "logOutButton";
-            this.logOutButton.Size = new System.Drawing.Size(75, 23);
+            this.logOutButton.Size = new System.Drawing.Size(100, 28);
             this.logOutButton.TabIndex = 0;
             this.logOutButton.Text = "Log out!";
             this.logOutButton.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(377, 630);
+            this.ClientSize = new System.Drawing.Size(503, 775);
             this.Controls.Add(this.footerPanel);
             this.Controls.Add(this.contactListPanel);
             this.Controls.Add(this.menuPanel);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainWindow";
             this.Text = "Secure Messaging System";
             this.menuPanel.ResumeLayout(false);

@@ -16,6 +16,7 @@ namespace PostboxCommunicator {
             ArchiveView archive = new ArchiveView();
             FeedbackView feedback = new FeedbackView(); 
             fillContactList();
+            FeedbackView.Show("this is a custom error", "MSG", "home", "Close");
 
             archive.ShowDialog();
             logIn.Show();
@@ -49,6 +50,16 @@ namespace PostboxCommunicator {
             contact.Text = user;
             contact.Width = contactFlowPanel.Width - 15;
             contactFlowPanel.Controls.Add(contact);
+        }
+
+        private void contactFlowPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void menuPanel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
