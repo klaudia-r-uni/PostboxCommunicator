@@ -16,6 +16,8 @@ namespace PostboxCommunicator {
             ArchiveView archive = new ArchiveView();
             FeedbackView feedback = new FeedbackView(); 
             fillContactList();
+
+            //feedback message details
             FeedbackView.Show("this is a custom error", "MSG", "home", "Close");
 
             archive.ShowDialog();
