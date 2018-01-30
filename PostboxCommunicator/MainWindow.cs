@@ -17,10 +17,10 @@ namespace PostboxCommunicator {
             FeedbackView feedback = new FeedbackView(); 
             fillContactList();
 
-            archive.ShowDialog();
-            logIn.Show();
-            conversation.Show();
-            feedback.Show();
+            //archive.Show();
+            //logIn.Show();
+            conversation.ShowDialog();
+            //feedback.Show();
         }
 
         public void fillContactList() {
