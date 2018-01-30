@@ -19,7 +19,7 @@ namespace PostboxCommunicator {
 
             //archive.Show();
             //logIn.Show();
-            conversation.ShowDialog();
+            conversation.Show();
             //feedback.Show();
         }
 

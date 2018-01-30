@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace PostboxCommunicator {
     public class ApplicationState {
 
-        private const string user = "Harry Potter"; 
+        private const string user = "Harry Potter";
+        public const string userId = "HarryPotter";
 
         public static string getUserName() {
             return user; 
