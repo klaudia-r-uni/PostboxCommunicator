@@ -18,7 +18,7 @@ namespace PostboxCommunicator {
             fillContactList();
 
             //feedback message details
-            FeedbackView.Show("this is a custom error", "MSG", "home", "Close");
+            FeedbackView.Show("this is a custom error", "MSG");
 
             archive.ShowDialog();
             logIn.Show();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,15 @@ namespace PostboxCommunicator {
                this.ClientSize.Width / 2 - logInBackgroundPanel.Size.Width / 2,
                this.ClientSize.Height / 2 - logInBackgroundPanel.Size.Height / 2
             );
+        }
+
+
+      
+
+
+        private void LogInView_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

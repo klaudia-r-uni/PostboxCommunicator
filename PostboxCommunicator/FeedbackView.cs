@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PostboxCommunicator.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,52 +16,39 @@ namespace PostboxCommunicator
         public FeedbackView()
         {
             InitializeComponent();
+
+            this.BackColor = Color.FromArgb(255, 212, 213, 214);
+            contentPanel.BackColor = Color.FromArgb(255, 159, 170, 218);
+
+            messageContent.BackColor = Color.FromArgb(255, 255, 250, 139);
+            messageContent.BorderStyle = BorderStyle.FixedSingle;
+
+            //@TODO change to content
+            messageContent.Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vestibulum accumsan eros, quis sodales leo suscipit vel. Duis finibus dictum laoreet. Ut lobortis odio libero, a vulputate nibh mattis eget.";
+
+            ViewHelper.centerTheTextBox(messageContent, contentPanel);
+            ViewHelper.centerThePanel(contentPanel, this);
         }
 
-        // public FeedbackView(string errormessage)
-        //{
-        //    InitializeComponent();
 
-        //  string em = errormessage;
-
-        // messageContent.Text = em.ToString();
-        // }
-
-        static FeedbackView MsgBox; static DialogResult result = DialogResult.No;
+        static FeedbackView MsgBox;
         ////////////////////////////////////////////////////////////////////////////////
 
-        public static DialogResult Show(string Text, string Caption, string btnOK, string btnCancel)
+        public static void Show(string Text, string Caption)
         {
             MsgBox = new FeedbackView();
             MsgBox.messageContent.Text = Text;
-            MsgBox.button1.Text = btnOK;
-            MsgBox.button2.Text = btnCancel;
+            //MsgBox.button1.Text = btnOK;
+            // MsgBox.button2.Text = btnCancel;
             MsgBox.Text = Caption;
-            result = DialogResult.No;
+            //result = DialogResult.No;
             MsgBox.ShowDialog();
-            return result;
-        }
-        ////////////////////////////////////////////////////////////////////////////////
-
-
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            result = DialogResult.Yes;
-            MsgBox.Close();
-
-        }
-        private void button2_Click(object sender, EventArgs e)
-        {
-            result = DialogResult.No;
-            Application.Exit();
-
+            //return result;
         }
 
-        private void messageContent_TextChanged(object sender, EventArgs e)
-        {
-            //  messageContent.Text = em;
-        }
+
+
+
 
 
         private void FeedbackView_Load(object sender, EventArgs e)
