@@ -18,8 +18,8 @@ namespace PostboxCommunicator.Controllers {
             newMessage.Multiline = true;
             newMessage.TabStop = false;
             newMessage.WordWrap = true;
-            newMessage.ScrollBars = ScrollBars.Vertical;
-            newMessage.BorderStyle = BorderStyle.FixedSingle; 
+            newMessage.BorderStyle = BorderStyle.None; 
+
             //TODO - prevent resizing problems 
             newMessage.Width = panel.Width - 100;
 
@@ -27,14 +27,15 @@ namespace PostboxCommunicator.Controllers {
 
             int messageTextBoxWidth = newMessage.Width;
             double numberOfCharsPerLine = (double)messageTextBoxWidth / characterLength;
-            int height = Convert.ToInt32((double)message.content.Length / numberOfCharsPerLine);
+            int height = Convert.ToInt32((double)message.content.Length / (0.8 * numberOfCharsPerLine));
 
             newMessage.Height = (height * 10) + 20; 
 
             if( message.authorType != "user") {
-                newMessage.Margin = new Padding(95, 0, 0, 0);
+                newMessage.Margin = new Padding(95, 10, 0, 0);
                 newMessage.BackColor = Color.FromArgb(255, 159, 170, 218);
             } else {
+                newMessage.Margin = new Padding(10, 10, 0, 0);
                 newMessage.BackColor = Color.FromArgb(255, 255, 250, 139);
             }
             return newMessage;
