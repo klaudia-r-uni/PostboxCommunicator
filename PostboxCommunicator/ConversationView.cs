@@ -38,5 +38,42 @@ namespace PostboxCommunicator {
         private void background_Resize(object sender, System.EventArgs e) {
             
         }
+
+        private void sendButton_Click(object sender, System.EventArgs e)
+        {
+            string input = messageContentField.Text;
+            if (!string.IsNullOrWhiteSpace(input))
+            {
+                sendMessage(input);
+            }
+
+        }
+        public void sendMessage(string message)
+        { 
+            MessageController controller = new MessageController();
+            MessageModel sendMessage = new MessageModel
+            {
+                content = message,
+                authorType = "user"
+            };
+
+            TextBox authorsMessage = controller.getMessageBox(sendMessage, background);
+            background.Controls.Add(authorsMessage);
+            messageContentField.Focus();
+            messageContentField.Clear();
+
+        }
+
+        private void messageContentField_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string input = messageContentField.Text;
+                if (!string.IsNullOrWhiteSpace(input))
+                {
+                    sendMessage(input);
+                }
+            }
+        }
     }
 }
