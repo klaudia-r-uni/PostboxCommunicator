@@ -29,46 +29,52 @@
             this.textLogin = new System.Windows.Forms.TextBox();
             this.passwordLabel = new System.Windows.Forms.Label();
             this.loginLabel = new System.Windows.Forms.Label();
+            this.lblLoginError = new System.Windows.Forms.Label();
+            this.lblerror2 = new System.Windows.Forms.Label();
             this.logInBackgroundPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // logInBackgroundPanel
             // 
             this.logInBackgroundPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.logInBackgroundPanel.Controls.Add(this.lblerror2);
+            this.logInBackgroundPanel.Controls.Add(this.lblLoginError);
             this.logInBackgroundPanel.Controls.Add(this.sendButton);
             this.logInBackgroundPanel.Controls.Add(this.textBox2);
             this.logInBackgroundPanel.Controls.Add(this.textLogin);
             this.logInBackgroundPanel.Controls.Add(this.passwordLabel);
             this.logInBackgroundPanel.Controls.Add(this.loginLabel);
             this.logInBackgroundPanel.Location = new System.Drawing.Point(29, 27);
-            this.logInBackgroundPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.logInBackgroundPanel.Margin = new System.Windows.Forms.Padding(4);
             this.logInBackgroundPanel.Name = "logInBackgroundPanel";
             this.logInBackgroundPanel.Size = new System.Drawing.Size(545, 215);
             this.logInBackgroundPanel.TabIndex = 0;
-          //  this.logInBackgroundPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.logInBackgroundPanel_Paint);
             // 
             // sendButton
             // 
             this.sendButton.Location = new System.Drawing.Point(392, 148);
-            this.sendButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sendButton.Margin = new System.Windows.Forms.Padding(4);
             this.sendButton.Name = "sendButton";
             this.sendButton.Size = new System.Drawing.Size(100, 28);
             this.sendButton.TabIndex = 4;
             this.sendButton.Text = "Send";
             this.sendButton.UseVisualStyleBackColor = true;
+            this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
             // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(187, 92);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
+            this.textBox2.PasswordChar = '*';
             this.textBox2.Size = new System.Drawing.Size(305, 22);
             this.textBox2.TabIndex = 3;
+            this.textBox2.UseSystemPasswordChar = true;
             // 
             // textLogin
             // 
             this.textLogin.Location = new System.Drawing.Point(187, 48);
-            this.textLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textLogin.Margin = new System.Windows.Forms.Padding(4);
             this.textLogin.Name = "textLogin";
             this.textLogin.Size = new System.Drawing.Size(305, 22);
             this.textLogin.TabIndex = 2;
@@ -95,13 +101,29 @@
             this.loginLabel.TabIndex = 0;
             this.loginLabel.Text = "Login";
             // 
+            // lblLoginError
+            // 
+            this.lblLoginError.AutoSize = true;
+            this.lblLoginError.Location = new System.Drawing.Point(39, 148);
+            this.lblLoginError.Name = "lblLoginError";
+            this.lblLoginError.Size = new System.Drawing.Size(0, 17);
+            this.lblLoginError.TabIndex = 5;
+            // 
+            // lblerror2
+            // 
+            this.lblerror2.AutoSize = true;
+            this.lblerror2.Location = new System.Drawing.Point(39, 169);
+            this.lblerror2.Name = "lblerror2";
+            this.lblerror2.Size = new System.Drawing.Size(0, 17);
+            this.lblerror2.TabIndex = 6;
+            // 
             // LogInView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(613, 258);
             this.Controls.Add(this.logInBackgroundPanel);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(631, 305);
             this.MinimumSize = new System.Drawing.Size(631, 305);
@@ -122,5 +144,7 @@
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textLogin;
+        private System.Windows.Forms.Label lblerror2;
+        private System.Windows.Forms.Label lblLoginError;
     }
 }
