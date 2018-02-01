@@ -24,11 +24,9 @@ namespace PostboxCommunicator {
 
             MessageModel messageOne = new MessageModel(); 
             messageOne.content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vestibulum accumsan eros, quis sodales leo suscipit vel. Duis finibus dictum laoreet. Ut lobortis odio libero, a vulputate nibh mattis eget.";
-            messageOne.authorType = "user";
 
             MessageModel messageTwo = new MessageModel();
             messageTwo.content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vestibulum accumsan eros, quis sodales leo suscipit vel. Duis finibus dictum laoreet. Ut lobortis odio libero, a vulputate nibh mattis eget.";
-            messageTwo.authorType = "response";
 
             MessageController controller = new MessageController();
             TextBox message = controller.getMessageBox(messageOne, messageContentPanel); 
