@@ -3,24 +3,27 @@ using System.Drawing;
 using System.Windows.Forms;
 
 namespace PostboxCommunicator {
-    public partial class MainWindow : Form {
-        public MainWindow() {
-            InitializeComponent();
-            menuPanel.BackColor = Color.FromArgb(255, 159, 170, 218);
-            contactListPanel.BackColor = Color.FromArgb(255, 212, 213, 214);
-            footerPanel.BackColor = Color.FromArgb(255, 159, 170, 218);
-            string interlocutor = "Harry Potter";
+    public partial class ContactListView : Form {
+        public ContactListView() {
 
-            ConversationView conversation = new ConversationView(interlocutor);
-            LogInView logIn = new LogInView();
-            ArchiveView archive = new ArchiveView();
-            FeedbackView feedback = new FeedbackView(); 
-            fillContactList();
+            if (ApplicationState.user == null) {
+                LogInView logIn = new LogInView();
+                logIn.Show();
+            } else {
+                InitializeComponent();
+                menuPanel.BackColor = Color.FromArgb(255, 159, 170, 218);
+                contactListPanel.BackColor = Color.FromArgb(255, 212, 213, 214);
+                footerPanel.BackColor = Color.FromArgb(255, 159, 170, 218);
+                
+                //ConversationView conversation = new ConversationView(interlocutor);
+                //ArchiveView archive = new ArchiveView();
+                //FeedbackView feedback = new FeedbackView(); 
+                fillContactList();
 
-            //archive.Show();
-            //logIn.Show();
-            conversation.Show();
-            //feedback.Show();
+                //archive.Show();
+                //conversation.Show();
+                //feedback.Show();
+            }
         }
 
         public void fillContactList() {
@@ -28,12 +31,12 @@ namespace PostboxCommunicator {
             String[] users = { "Harry Potter", "Hermiona Granger", "Ronald Wesley", "Draco Malfoy", "Ginny Wesley", "Albus Dumbledore", "Severus Snape" };
             int i = 0; 
             foreach( String user in users) {
-                this.getNewContact(user, i);
+                this.addNewContactToList(user, i);
                 i++;
             }
         }
 
-        private void getNewContact(string user, int i) {
+        private void addNewContactToList(string user, int i) {
             Label contact = new Label();
             int fontSize = 12;
             contact.Padding = new Padding(10, 4, 4, 4);

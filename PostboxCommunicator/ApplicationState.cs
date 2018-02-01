@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PostboxCommunicator.Models;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -6,13 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PostboxCommunicator {
-    public class ApplicationState {
+    class ApplicationState {
 
-        private const string user = "Harry Potter";
-        public const string userId = "HarryPotter";
+        public static UserModel user;
+        
 
-        public static string getUserName() {
-            return user; 
-        }
     }
 }

@@ -24,11 +24,11 @@
         /// </summary>
         private void InitializeComponent() {
             this.logInBackgroundPanel = new System.Windows.Forms.Panel();
-            this.loginLabel = new System.Windows.Forms.Label();
-            this.passwordLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.sendButton = new System.Windows.Forms.Button();
+            this.passwordInput = new System.Windows.Forms.TextBox();
+            this.loginInput = new System.Windows.Forms.TextBox();
+            this.passwordLabel = new System.Windows.Forms.Label();
+            this.loginLabel = new System.Windows.Forms.Label();
             this.logInBackgroundPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -36,8 +36,8 @@
             // 
             this.logInBackgroundPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.logInBackgroundPanel.Controls.Add(this.sendButton);
-            this.logInBackgroundPanel.Controls.Add(this.textBox2);
-            this.logInBackgroundPanel.Controls.Add(this.textBox1);
+            this.logInBackgroundPanel.Controls.Add(this.passwordInput);
+            this.logInBackgroundPanel.Controls.Add(this.loginInput);
             this.logInBackgroundPanel.Controls.Add(this.passwordLabel);
             this.logInBackgroundPanel.Controls.Add(this.loginLabel);
             this.logInBackgroundPanel.Location = new System.Drawing.Point(22, 22);
@@ -45,15 +45,29 @@
             this.logInBackgroundPanel.Size = new System.Drawing.Size(409, 175);
             this.logInBackgroundPanel.TabIndex = 0;
             // 
-            // loginLabel
+            // sendButton
             // 
-            this.loginLabel.AutoSize = true;
-            this.loginLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.loginLabel.Location = new System.Drawing.Point(85, 39);
-            this.loginLabel.Name = "loginLabel";
-            this.loginLabel.Size = new System.Drawing.Size(48, 17);
-            this.loginLabel.TabIndex = 0;
-            this.loginLabel.Text = "Login";
+            this.sendButton.Location = new System.Drawing.Point(294, 120);
+            this.sendButton.Name = "sendButton";
+            this.sendButton.Size = new System.Drawing.Size(75, 23);
+            this.sendButton.TabIndex = 4;
+            this.sendButton.Text = "Send";
+            this.sendButton.UseVisualStyleBackColor = true;
+            this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
+            // 
+            // passwordInput
+            // 
+            this.passwordInput.Location = new System.Drawing.Point(140, 75);
+            this.passwordInput.Name = "passwordInput";
+            this.passwordInput.Size = new System.Drawing.Size(230, 20);
+            this.passwordInput.TabIndex = 3;
+            // 
+            // loginInput
+            // 
+            this.loginInput.Location = new System.Drawing.Point(140, 39);
+            this.loginInput.Name = "loginInput";
+            this.loginInput.Size = new System.Drawing.Size(230, 20);
+            this.loginInput.TabIndex = 2;
             // 
             // passwordLabel
             // 
@@ -65,28 +79,15 @@
             this.passwordLabel.TabIndex = 1;
             this.passwordLabel.Text = "Password";
             // 
-            // textBox1
+            // loginLabel
             // 
-            this.textBox1.Location = new System.Drawing.Point(140, 39);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(230, 20);
-            this.textBox1.TabIndex = 2;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(140, 75);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(230, 20);
-            this.textBox2.TabIndex = 3;
-            // 
-            // sendButton
-            // 
-            this.sendButton.Location = new System.Drawing.Point(294, 120);
-            this.sendButton.Name = "sendButton";
-            this.sendButton.Size = new System.Drawing.Size(75, 23);
-            this.sendButton.TabIndex = 4;
-            this.sendButton.Text = "Send";
-            this.sendButton.UseVisualStyleBackColor = true;
+            this.loginLabel.AutoSize = true;
+            this.loginLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.loginLabel.Location = new System.Drawing.Point(85, 39);
+            this.loginLabel.Name = "loginLabel";
+            this.loginLabel.Size = new System.Drawing.Size(48, 17);
+            this.loginLabel.TabIndex = 0;
+            this.loginLabel.Text = "Login";
             // 
             // LogInView
             // 
@@ -111,7 +112,7 @@
         private System.Windows.Forms.Label passwordLabel;
         private System.Windows.Forms.Label loginLabel;
         private System.Windows.Forms.Button sendButton;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox passwordInput;
+        private System.Windows.Forms.TextBox loginInput;
     }
 }

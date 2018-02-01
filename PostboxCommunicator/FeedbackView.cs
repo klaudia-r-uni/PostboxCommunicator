@@ -26,5 +26,10 @@ namespace PostboxCommunicator {
             ViewHelper.centerTheTextBox(messageContent, contentPanel);
             ViewHelper.centerThePanel(contentPanel, this); 
         }
+
+        public void setCustomizedMessage(string message) {
+            this.messageContent.Text = message;
+        }
+
     }
 }
