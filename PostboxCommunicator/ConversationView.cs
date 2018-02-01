@@ -5,15 +5,15 @@ using System.Drawing;
 using System.Windows.Forms;
 
 namespace PostboxCommunicator {
-    public partial class ConversationView : Form {
+    partial class ConversationView : Form {
         private ArrayList messages;
 
         //not sure if "interlocutor" is the right word for it? 
-        public ConversationView(string interlocutorName) {
+        public ConversationView(UserModel interlocutorModel) {
             this.messages = new ArrayList();
 
             InitializeComponent();
-            this.Text = interlocutorName;
+            this.Text = interlocutorModel.displayName;
 
             background.BackColor = Color.FromArgb(255, 212, 213, 214);
             footerPanel.BackColor = Color.FromArgb(255, 212, 213, 214);
