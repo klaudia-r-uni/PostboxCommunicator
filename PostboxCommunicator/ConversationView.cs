@@ -25,6 +25,7 @@ namespace PostboxCommunicator {
 
             TextBox authorsMessage = controller.getMessageBox(message, background);
             background.Controls.Add(authorsMessage);
+            background.ScrollControlIntoView(authorsMessage);
 
             MessageModel responseModel = new MessageModel();
             responseModel.content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vestibulum accumsan eros, quis sodales leo suscipit vel. Duis finibus dictum laoreet. Ut lobortis odio libero, a vulputate nibh mattis eget.";
@@ -32,6 +33,7 @@ namespace PostboxCommunicator {
 
             TextBox response = controller.getMessageBox(responseModel, background);
             background.Controls.Add(response);
+            background.ScrollControlIntoView(response);
             messageContentField.Focus();
         }
 
@@ -59,6 +61,7 @@ namespace PostboxCommunicator {
 
             TextBox authorsMessage = controller.getMessageBox(sendMessage, background);
             background.Controls.Add(authorsMessage);
+            background.ScrollControlIntoView(authorsMessage);
             messageContentField.Focus();
             messageContentField.Clear();
 

@@ -33,6 +33,7 @@
             // 
             // background
             // 
+            this.background.AutoScroll = true;
             this.background.Dock = System.Windows.Forms.DockStyle.Top;
             this.background.Location = new System.Drawing.Point(0, 0);
             this.background.Margin = new System.Windows.Forms.Padding(6);
