@@ -134,7 +134,7 @@ namespace PostboxCommunicator
             catch
             {
                 FeedbackView.Show("Sorry error connecting to the server", "Connection Error");
-                new LogInView();
+               
             }
 
         }
@@ -200,6 +200,10 @@ namespace PostboxCommunicator
             hackcheck();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
