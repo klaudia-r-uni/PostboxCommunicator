@@ -49,7 +49,7 @@ namespace PostboxCommunicator {
         }
 
         private bool credentialsValid(string login, string password) {
-            return false; 
+            return true; 
         }
     }
 }

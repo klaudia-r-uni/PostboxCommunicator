@@ -17,8 +17,8 @@ namespace PostboxCommunicator {
                 menuPanel.BackColor = Color.FromArgb(255, 159, 170, 218);
                 contactListPanel.BackColor = Color.FromArgb(255, 212, 213, 214);
                 footerPanel.BackColor = Color.FromArgb(255, 159, 170, 218);
-                
-                //ConversationView conversation = new ConversationView(interlocutor);
+
+                //ConversationView conversation = new ConversationView();
                 //ArchiveView archive = new ArchiveView();
                 //FeedbackView feedback = new FeedbackView(); 
                 fillContactList();
