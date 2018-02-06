@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -23,6 +24,10 @@ namespace PostboxCommunicator
             logInBackgroundPanel.BackColor = Color.FromArgb(255, 159, 170, 218);
             loginLabel.ForeColor = Color.FromArgb(255, 38, 78, 242);
             passwordLabel.ForeColor = Color.FromArgb(255, 38, 78, 242);
+
+
+
+
         }
 
         private void centerThePanel()
@@ -56,6 +61,9 @@ namespace PostboxCommunicator
 
                 hackcheck();
 
+
+
+
                 if (textLogin.TextLength == 0)
                 {
                     lblLoginError.Text = "Field cannot be empty ";
@@ -78,35 +86,6 @@ namespace PostboxCommunicator
                 }
 
 
-
-
-                //else
-                //{
-                //    string sql = "SELECT User FROM Users WHERE UserName = @Username AND Password = @Password";
-
-                //    //login 
-                //    using (SqlConnection connection = new SqlConnection(/* connection info */))
-                //    using (SqlCommand command = new SqlCommand(sql, connection))
-                //    {
-
-                //        SqlParameter userName = new SqlParameter("@Username", SqlDbType.Text);
-                //        SqlParameter password = new SqlParameter("@Password", SqlDbType.Text);
-
-                //        userName.Value = em;
-                //        password.Value = pass;
-
-
-                //        command.Parameters.Add(userName);
-                //        command.Parameters.Add(password);
-                //        var results = command.ExecuteReader();
-
-                //    }
-
-                //    if(sql == null)
-                //    {
-                //        lblLoginError.Text = "Wrong Details entered, Try again";
-                //    }
-                //}
 
                 else
                 {
@@ -136,11 +115,11 @@ namespace PostboxCommunicator
                 string dbusername = "a";
                 string dbPassword = "a";
 
-                if(textLogin.Text !=  dbusername)
+                if (textLogin.Text != dbusername)
                 {
                     lblLoginError.Text = "User name or Password is incorrect";
                 }
-                else if(textBox2.Text != dbPassword)
+                else if (textBox2.Text != dbPassword)
                 {
                     lblLoginError.Text = "User name or Password is incorrect";
                 }
@@ -162,93 +141,66 @@ namespace PostboxCommunicator
 
 
 
+
+
+
+
+
+
+
         public void hackcheck()
         {
 
-            if (textLogin.Text.Contains("\0") || textBox2.Text.Contains("\0"))
+
+
+            List<string> banned = new List<string>();
+            banned.Add("\'");
+            banned.Add("\"");
+            banned.Add("\b");
+            banned.Add("\n");
+            banned.Add("\r");
+            banned.Add("\t");
+            banned.Add("\\");
+            banned.Add("INSERT");
+            banned.Add("AND");
+            banned.Add("FROM");
+            banned.Add("WHERE");
+
+
+
+
+            foreach (var b in banned)
             {
-                lblerror2.Text = "Please stop trying to hack us :)";
+                if (textLogin.Text.Contains(b) || textBox2.Text.Contains(b))
+                {
+                    lblerror2.Text = "Please stop trying to hack us :)";
 
+                }
             }
-            else if (textLogin.Text.Contains("\'") || textBox2.Text.Contains("\'"))
-            {
-                lblerror2.Text = "Please stop trying to hack us :)";
-
-            }
-            else if (textLogin.Text.Contains("\"") || textBox2.Text.Contains("\""))
-            {
-                lblerror2.Text = "Please stop trying to hack us :)";
 
 
-            }
-            else if (textLogin.Text.Contains("\b") || textBox2.Text.Contains("\b"))
-            {
-                lblerror2.Text = "Please stop trying to hack us :)";
 
-            }
-            else if (textLogin.Text.Contains("\n") || textBox2.Text.Contains("\n"))
-            {
-                lblerror2.Text = "Please stop trying to hack us :)";
-
-            }
-            else if (textLogin.Text.Contains("\r") || textBox2.Text.Contains("\r"))
-            {
-                lblerror2.Text = "Please stop trying to hack us :)";
-
-            }
-            else if (textLogin.Text.Contains("\t") || textBox2.Text.Contains("\t"))
-            {
-                lblerror2.Text = "Please stop trying to hack us :)";
-
-            }
-            else if (textLogin.Text.Contains("\\") || textBox2.Text.Contains("\\"))
-            {
-                lblerror2.Text = "Please stop trying to hack us :)";
-
-            }
-            //else if(textLogin.Text.Contains("\Z") || textBox2.Text.Contains("\Z"))
-            //{
-            //    lblerror2.Text = "Please stop trying to hack us :)";
-
-            //}
-            //else if (textLogin.Text.Contains("\%") || textBox2.Text.Contains("\%"))
-            //{
-            //    lblerror2.Text = "Please stop trying to hack us :)";
-
-            //}
-            //else if (textLogin.Text.Contains("\_") || textBox2.Text.Contains("\_"))
-            //{
-            //    lblerror2.Text = "Please stop trying to hack us :)";
-
-            //}
-            else if (textLogin.Text.Contains("INSERT") || textBox2.Text.Contains("INSERT"))
-            {
-                lblerror2.Text = "Please stop trying to hack us :)";
-
-            }
-            else if (textLogin.Text.Contains("AND") || textBox2.Text.Contains("AND"))
-            {
-                lblerror2.Text = "Please stop trying to hack us :)";
-
-
-            }
-            else if (textLogin.Text.Contains("WHERE") || textBox2.Text.Contains("WHERE"))
-            {
-                lblerror2.Text = "Please stop trying to hack us :)";
-
-            }
-            else if (textLogin.Text.Contains("FROM") || textBox2.Text.Contains("FROM"))
-            {
-                lblerror2.Text = "Please stop trying to hack us :)";
-
-            }
 
         }
 
 
 
+        private void textLogin_TextChanged(object sender, EventArgs e)
+        {
+            lblerror2.Text = "";
+
+            hackcheck();
+        }
+
+      
+
+        private void textBox2_TextChanged(object sender, EventArgs e )
+        {
+            lblerror2.Text = "";
+            hackcheck();
+        }
 
     }
+
 }
-//    }
-//}
+

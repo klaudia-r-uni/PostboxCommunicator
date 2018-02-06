@@ -24,13 +24,13 @@
         /// </summary>
         private void InitializeComponent() {
             this.logInBackgroundPanel = new System.Windows.Forms.Panel();
+            this.lblerror2 = new System.Windows.Forms.Label();
+            this.lblLoginError = new System.Windows.Forms.Label();
             this.sendButton = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textLogin = new System.Windows.Forms.TextBox();
             this.passwordLabel = new System.Windows.Forms.Label();
             this.loginLabel = new System.Windows.Forms.Label();
-            this.lblLoginError = new System.Windows.Forms.Label();
-            this.lblerror2 = new System.Windows.Forms.Label();
             this.logInBackgroundPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,6 +49,22 @@
             this.logInBackgroundPanel.Name = "logInBackgroundPanel";
             this.logInBackgroundPanel.Size = new System.Drawing.Size(545, 215);
             this.logInBackgroundPanel.TabIndex = 0;
+            // 
+            // lblerror2
+            // 
+            this.lblerror2.AutoSize = true;
+            this.lblerror2.Location = new System.Drawing.Point(39, 169);
+            this.lblerror2.Name = "lblerror2";
+            this.lblerror2.Size = new System.Drawing.Size(0, 17);
+            this.lblerror2.TabIndex = 6;
+            // 
+            // lblLoginError
+            // 
+            this.lblLoginError.AutoSize = true;
+            this.lblLoginError.Location = new System.Drawing.Point(39, 148);
+            this.lblLoginError.Name = "lblLoginError";
+            this.lblLoginError.Size = new System.Drawing.Size(0, 17);
+            this.lblLoginError.TabIndex = 5;
             // 
             // sendButton
             // 
@@ -70,6 +86,7 @@
             this.textBox2.Size = new System.Drawing.Size(305, 22);
             this.textBox2.TabIndex = 3;
             this.textBox2.UseSystemPasswordChar = true;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // textLogin
             // 
@@ -78,6 +95,7 @@
             this.textLogin.Name = "textLogin";
             this.textLogin.Size = new System.Drawing.Size(305, 22);
             this.textLogin.TabIndex = 2;
+            this.textLogin.TextChanged += new System.EventHandler(this.textLogin_TextChanged);
             // 
             // passwordLabel
             // 
@@ -100,22 +118,6 @@
             this.loginLabel.Size = new System.Drawing.Size(59, 22);
             this.loginLabel.TabIndex = 0;
             this.loginLabel.Text = "Login";
-            // 
-            // lblLoginError
-            // 
-            this.lblLoginError.AutoSize = true;
-            this.lblLoginError.Location = new System.Drawing.Point(39, 148);
-            this.lblLoginError.Name = "lblLoginError";
-            this.lblLoginError.Size = new System.Drawing.Size(0, 17);
-            this.lblLoginError.TabIndex = 5;
-            // 
-            // lblerror2
-            // 
-            this.lblerror2.AutoSize = true;
-            this.lblerror2.Location = new System.Drawing.Point(39, 169);
-            this.lblerror2.Name = "lblerror2";
-            this.lblerror2.Size = new System.Drawing.Size(0, 17);
-            this.lblerror2.TabIndex = 6;
             // 
             // LogInView
             // 

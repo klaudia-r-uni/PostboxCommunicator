@@ -38,12 +38,8 @@ namespace PostboxCommunicator
         {
             MsgBox = new FeedbackView();
             MsgBox.messageContent.Text = Text;
-            //MsgBox.button1.Text = btnOK;
-            // MsgBox.button2.Text = btnCancel;
             MsgBox.Text = Caption;
-            //result = DialogResult.No;
             MsgBox.ShowDialog();
-            //return result;
         }
 
 
