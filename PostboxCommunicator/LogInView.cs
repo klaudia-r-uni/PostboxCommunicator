@@ -25,9 +25,6 @@ namespace PostboxCommunicator
             loginLabel.ForeColor = Color.FromArgb(255, 38, 78, 242);
             passwordLabel.ForeColor = Color.FromArgb(255, 38, 78, 242);
 
-
-
-
         }
 
         private void centerThePanel()
@@ -140,21 +137,10 @@ namespace PostboxCommunicator
         }
 
 
-
-
-
-
-
-
-
-
         public void hackcheck()
         {
-
-
-
+            
             List<string> banned = new List<string>();
-            banned.Add("\'");
             banned.Add("\"");
             banned.Add("\b");
             banned.Add("\n");
@@ -166,9 +152,6 @@ namespace PostboxCommunicator
             banned.Add("FROM");
             banned.Add("WHERE");
 
-
-
-
             foreach (var b in banned)
             {
                 if (textLogin.Text.Contains(b) || textBox2.Text.Contains(b))
@@ -177,9 +160,6 @@ namespace PostboxCommunicator
 
                 }
             }
-
-
-
 
         }
 
@@ -198,11 +178,6 @@ namespace PostboxCommunicator
         {
             lblerror2.Text = "";
             hackcheck();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 

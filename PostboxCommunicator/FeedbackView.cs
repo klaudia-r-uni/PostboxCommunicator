@@ -42,11 +42,6 @@ namespace PostboxCommunicator
             MsgBox.ShowDialog();
         }
 
-
-
-
-
-
         private void FeedbackView_Load(object sender, EventArgs e)
         {
 
