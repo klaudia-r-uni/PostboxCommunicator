@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using PostboxCommunicator.Models;
 
 namespace PostboxCommunicator {
-    public class ApplicationState {
+    class ApplicationState {
 
-        private const string user = "Harry Potter"; 
+        public static UserModel user;
+        
 
-        public static string getUserName() {
-            return user; 
-        }
     }
 }
