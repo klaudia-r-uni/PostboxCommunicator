@@ -75,7 +75,7 @@
             this.archiveButton.TabIndex = 1;
             this.archiveButton.Text = "Archive";
             this.archiveButton.UseVisualStyleBackColor = true;
-            this.archiveButton.Click += new System.EventHandler(this.archiveButton_Click);
+
             // 
             // panel2
             // 
@@ -125,7 +125,7 @@
             this.logOutButton.TabIndex = 0;
             this.logOutButton.Text = "Log out!";
             this.logOutButton.UseVisualStyleBackColor = true;
-            this.logOutButton.Click += new System.EventHandler(this.logOutButton_Click);
+
             // 
             // MainWindow
             // 
