@@ -12,23 +12,22 @@ using WebSocketSharp;
 
 
 namespace PostboxCommunicator.Infrastructure {
-    class ClientServerCommunication {
-        private static ClientServerCommunication instance;
-        private static HttpClient hClient;
+    public sealed class ClientServerCommunication {
+        private static readonly ClientServerCommunication instance = new ClientServerCommunication();
+        private static readonly HttpClient hClient = new HttpClient {BaseAddress = new Uri("http://localhost:3000/")};
         public WebSocket sock;
+        
 
         private ClientServerCommunication() {
-            hClient = new HttpClient();
-            hClient.BaseAddress = new Uri("http://localhost:3000/");
         }
 
         //Singleton
-        public static ClientServerCommunication getInstance() {
-            if (instance == null) {
-                instance = new ClientServerCommunication();
+        public static ClientServerCommunication Instance{
+            get
+            {
+                return instance;
             }
-
-            return instance;
+            
         }
 
         public async Task<string> login (LoginModel loginDetails) {
@@ -44,10 +43,12 @@ namespace PostboxCommunicator.Infrastructure {
             return error;
         }
 
-        private void connect() {
+        private void connect(){
             sock = new WebSocket("ws://localhost:8080");
+
             sock.OnOpen += (sender, e) => {
                 Console.WriteLine("onOpen");
+                
             };
             sock.Connect();
 
@@ -57,17 +58,25 @@ namespace PostboxCommunicator.Infrastructure {
             };
         }
 
-        public void sendMessage(NewMessageModel message){
+        public void joinList(){
+            var json = $"{{ \"connection\": \"{"user1"}\"}}";
+            sock.Send(json);
+        }
+
+        public void sendMessage(MessageModel message){
             string messageString= JsonConvert.SerializeObject(message);
             sock.Send(messageString);
         }
 
-        public async Task<string> getUsers() {
-
+        public async Task<List<UserModel>> getUsers() {
+            List<UserModel> users = new List<UserModel>();
+  
             HttpResponseMessage response = await hClient.GetAsync("api/getUsers");
-            string users = await response.Content.ReadAsStringAsync();
+            users = JsonConvert.DeserializeObject<List<UserModel>>(response.Content.ReadAsStringAsync().Result);
 
             return users;
+            //check response successful.
+            //https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
         }
 
 

@@ -88,6 +88,8 @@
     <Compile Include="ContactListView.Designer.cs">
       <DependentUpon>ContactListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mocks\ApiMock.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Program.cs" />
@@ -116,6 +118,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="bin\Debug\PostboxCommunicator.exe.config" />
+    <None Include="bin\Debug\PostboxCommunicator.vshost.exe.config" />
+    <None Include="bin\Debug\PostboxCommunicator.vshost.exe.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -130,7 +135,18 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\PostboxCommunicator.exe" />
+    <Content Include="bin\Debug\PostboxCommunicator.pdb" />
+    <Content Include="bin\Debug\PostboxCommunicator.vshost.exe" />
+    <Content Include="bin\Debug\websocket-sharp.dll" />
+    <Content Include="bin\Debug\websocket-sharp.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
