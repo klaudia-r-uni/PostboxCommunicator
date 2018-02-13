@@ -73,13 +73,15 @@
     <Compile Include="LogInView.Designer.cs">
       <DependentUpon>LogInView.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.cs">
+    <Compile Include="ContactListView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindow.Designer.cs">
-      <DependentUpon>MainWindow.cs</DependentUpon>
+    <Compile Include="ContactListView.Designer.cs">
+      <DependentUpon>ContactListView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Mocks\ApiMock.cs" />
     <Compile Include="Models\MessageModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ArchiveView.resx">
@@ -94,8 +96,8 @@
     <EmbeddedResource Include="LogInView.resx">
       <DependentUpon>LogInView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow.resx">
-      <DependentUpon>MainWindow.cs</DependentUpon>
+    <EmbeddedResource Include="ContactListView.resx">
+      <DependentUpon>ContactListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

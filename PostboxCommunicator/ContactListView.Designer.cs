@@ -1,5 +1,5 @@
 ﻿namespace PostboxCommunicator {
-    partial class MainWindow {
+    partial class ContactListView {
         /// <summary>
         /// Required designer variable.
         /// </summary>

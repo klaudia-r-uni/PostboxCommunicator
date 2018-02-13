@@ -24,23 +24,44 @@
         /// </summary>
         private void InitializeComponent() {
             this.background = new System.Windows.Forms.FlowLayoutPanel();
+            this.messagesGrid = new System.Windows.Forms.TableLayoutPanel();
             this.messageContentField = new System.Windows.Forms.RichTextBox();
             this.sendButton = new System.Windows.Forms.Button();
             this.footerPanel = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
+            this.background.SuspendLayout();
             this.footerPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // background
             // 
             this.background.AutoScroll = true;
+<<<<<<< HEAD
+=======
+            this.background.Controls.Add(this.messagesGrid);
+>>>>>>> development
             this.background.Dock = System.Windows.Forms.DockStyle.Top;
             this.background.Location = new System.Drawing.Point(0, 0);
             this.background.Margin = new System.Windows.Forms.Padding(6);
             this.background.Name = "background";
             this.background.Size = new System.Drawing.Size(1334, 967);
             this.background.TabIndex = 0;
-            this.background.Resize += new System.EventHandler(this.background_Resize);
+            this.background.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ConversationView_Scroll);
+            // 
+            // messagesGrid
+            // 
+            this.messagesGrid.AutoSize = true;
+            this.messagesGrid.ColumnCount = 1;
+            this.messagesGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.messagesGrid.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.messagesGrid.Dock = System.Windows.Forms.DockStyle.Top;
+            this.messagesGrid.Location = new System.Drawing.Point(3, 3);
+            this.messagesGrid.Name = "messagesGrid";
+            this.messagesGrid.RowCount = 1;
+            this.messagesGrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.messagesGrid.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.messagesGrid.Size = new System.Drawing.Size(0, 0);
+            this.messagesGrid.TabIndex = 0;
             // 
             // messageContentField
             // 
@@ -100,6 +121,9 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "ConversationView";
             this.Text = "ConversationView";
+            this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ConversationView_Scroll);
+            this.background.ResumeLayout(false);
+            this.background.PerformLayout();
             this.footerPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -112,5 +136,6 @@
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.Panel footerPanel;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TableLayoutPanel messagesGrid;
     }
 }
