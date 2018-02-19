@@ -44,6 +44,7 @@ namespace PostboxCommunicator {
         private int cnt = 0;
         private void loadMoreMessages() {
             ArrayList newMessages = this.getArrayListOfMessages();
+        
 
             this.messagesGrid.Visible = false;
             //shift everything
@@ -59,8 +60,14 @@ namespace PostboxCommunicator {
                 FlowLayoutPanel messageContainer = this.attachMessage((MessageModel)newMessages[i]);
                 this.messagesGrid.Controls.Add(messageContainer, 0, 0);
             }
+
             this.messagesGrid.Visible = true;
         }
+
+
+
+
+
 
         private void displayMessages() {
             ArrayList messages = this.getArrayListOfMessages();
