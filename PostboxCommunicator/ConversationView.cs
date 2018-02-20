@@ -38,5 +38,10 @@ namespace PostboxCommunicator {
         private void background_Resize(object sender, System.EventArgs e) {
             
         }
+
+        private void background_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

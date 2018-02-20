@@ -18,12 +18,12 @@ namespace PostboxCommunicator {
             fillContactList();
 
             //feedback message details
-            FeedbackView.Show("this is a custom error", "MSG");
+           FeedbackView.Show("this is a custom error", "MSG");
 
-            archive.ShowDialog();
             logIn.Show();
             conversation.Show();
             feedback.Show();
+            archive.ShowDialog();
         }
 
         public void fillContactList() {
@@ -62,6 +62,17 @@ namespace PostboxCommunicator {
         private void menuPanel_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+            Form fc = Application.OpenForms["MainWindow"];
+            if(fc == null)
+            {
+                Application.Exit();
+            }
+
+            
         }
     }
 }

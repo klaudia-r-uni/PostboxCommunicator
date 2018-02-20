@@ -49,6 +49,7 @@
             this.logInBackgroundPanel.Name = "logInBackgroundPanel";
             this.logInBackgroundPanel.Size = new System.Drawing.Size(545, 215);
             this.logInBackgroundPanel.TabIndex = 0;
+            this.logInBackgroundPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.logInBackgroundPanel_Paint);
             // 
             // lblerror2
             // 
