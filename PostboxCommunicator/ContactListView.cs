@@ -2,11 +2,20 @@
 using PostboxCommunicator.Models;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Text;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using PostboxCommunicator.Infrastructure;
 
 namespace PostboxCommunicator {
-    public partial class ContactListView : Form {
+    public partial class ContactListView : Form{
+
+        private ClientServerCommunication server;
+
         public ContactListView() {
 
             if (ApplicationState.user == null) {
@@ -29,8 +38,10 @@ namespace PostboxCommunicator {
             }
         }
 
-        public void fillContactList() {
-            ArrayList users = ApiMock.getListOfContacts();
+        public async void fillContactList() {
+            server = ClientServerCommunication.Instance;
+            var users = await server.getUsers();
+            //ArrayList users = ApiMock.getListOfContacts();
             int i = 0; 
             foreach( UserModel user in users) {
                 this.addNewContactToList(user, i);

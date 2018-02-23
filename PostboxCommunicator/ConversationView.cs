@@ -11,7 +11,7 @@ namespace PostboxCommunicator
     {
         private ArrayList messages;
         private UserModel interlocutorModel;
-        private const int NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL = 2;
+        private const int NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL = 1;
 
         public ConversationView(UserModel interlocutorModel)
         {
@@ -50,10 +50,8 @@ namespace PostboxCommunicator
         }
 
         private int cnt = 0;
-        private void loadMoreMessages()
-        {
-            ArrayList messages = this.getArrayListOfMessages();
-
+        private void loadMoreMessages() {
+            ArrayList newMessages = this.getArrayListOfMessages();
             this.messagesGrid.Visible = false;
             //shift everything
             int rowCount = this.messagesGrid.RowCount - 1;
@@ -64,17 +62,21 @@ namespace PostboxCommunicator
                 this.messagesGrid.SetRow(row, i + NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL);
             }
             //insert new rows at the beginning 
-            for (int i = NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL; i >= 0; i--)
-            {
-                ((MessageModel)messages[i]).content = (++cnt).ToString();
-                FlowLayoutPanel messageContainer = this.attachMessage((MessageModel)messages[i]);
+
+            for (int i = NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL; i > 0; i--) { //>=0
+                ((MessageModel)newMessages[i]).content = (++cnt).ToString();
+                FlowLayoutPanel messageContainer = this.attachMessage((MessageModel)newMessages[i]);
                 this.messagesGrid.Controls.Add(messageContainer, 0, 0);
             }
+
             this.messagesGrid.Visible = true;
         }
 
-        private void displayMessages()
-        {
+
+
+
+
+        private void displayMessages() {
             ArrayList messages = this.getArrayListOfMessages();
             foreach (MessageModel message in messages)
             {
@@ -98,14 +100,12 @@ namespace PostboxCommunicator
                 if (i % 2 == 0)
                 {
                     message.content = i.ToString() + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vestibulum accumsan eros, quis sodales leo suscipit vel. Duis finibus dictum laoreet. Ut lobortis odio libero, a vulputate nibh mattis eget. Quisque imperdiet, nisl sit amet dapibus lacinia, magna dui convallis ipsum, non dictum velit ligula et augue. Maecenas a ipsum risus. Praesent in dolor sapien. Etiam malesuada diam vitae magna posuere dapibus ac non arcu. Aliquam vehicula turpis mi, ac varius purus porttitor non. Nulla facilisi. Vestibulum laoreet sit amet metus non interdum. Nam libero elit, luctus nec ipsum non, molestie porta justo. Suspendisse ut tincidunt nunc. Vestibulum ultrices faucibus elit a dapibus. Sed fermentum, massa ut lacinia interdum, mauris sapien congue mi, vel imperdiet massa orci sagittis nulla. Aliquam eu facilisis dui, vel dapibus erat.";
-                    message.recipientId = ApplicationState.user.id;
-                    message.senderId = this.interlocutorModel.id;
-                }
-                else
-                {
+                    message.recipientId = ApplicationState.user.username;
+                    message.senderId = this.interlocutorModel.username;
+                } else {
                     message.content = i.ToString() + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vestibulum accumsan eros, quis sodales leo suscipit vel. Duis finibus dictum laoreet. Ut lobortis odio libero, a vulputate nibh mattis eget. Quisque imperdiet, nisl sit amet dapibus lacinia, magna dui convallis ipsum, non dictum velit ligula et augue. Maecenas a ipsum risus. Praesent in dolor sapien. Etiam malesuada diam vitae magna posuere dapibus ac non arcu. Aliquam vehicula turpis mi, ac varius purus porttitor non. Nulla facilisi. Vestibulum laoreet sit amet metus non interdum. Nam libero elit,";
-                    message.recipientId = interlocutorModel.id;
-                    message.senderId = ApplicationState.user.id;
+                    message.recipientId = interlocutorModel.username;
+                    message.senderId = ApplicationState.user.username;
                 }
                 messages.Add(message);
             }

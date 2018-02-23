@@ -8,7 +8,7 @@ namespace PostboxCommunicator.Mocks {
 
         public UserModel logUserIn(string login, string password) {
             UserModel user = new UserModel();
-            user.id = "HarryPotter";
+            user.username = "HarryPotter";
             user.displayName = "Mr Harry Potter, Gryffindor";
 
             return user; 
@@ -18,7 +18,7 @@ namespace PostboxCommunicator.Mocks {
             ArrayList userModels = new ArrayList(); 
             foreach( string user in ApiMock.users ) {
                 UserModel pupil = new UserModel();
-                pupil.id = user.Replace(" ", String.Empty);
+                pupil.username = user.Replace(" ", String.Empty);
                 pupil.displayName = user;
                 userModels.Add(pupil);
             }

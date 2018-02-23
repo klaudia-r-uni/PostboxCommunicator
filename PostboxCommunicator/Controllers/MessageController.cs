@@ -27,11 +27,11 @@ namespace PostboxCommunicator.Controllers {
 
             newMessage.Height = (height * 10) + 20; 
 
-            if( message.recipientId == ApplicationState.user.id) {
+            if( message.recipientId == ApplicationState.user.username) {
                 newMessage.Margin = new Padding(95, 10, 0, 0);
                 //blue
                 newMessage.BackColor = Color.FromArgb(255, 159, 170, 218);
-            } else if ( message.senderId == ApplicationState.user.id ) {
+            } else if ( message.senderId == ApplicationState.user.username ) {
                 newMessage.Margin = new Padding(10, 10, 0, 0);
                 //yellow
                 newMessage.BackColor = Color.FromArgb(255, 255, 250, 139);
