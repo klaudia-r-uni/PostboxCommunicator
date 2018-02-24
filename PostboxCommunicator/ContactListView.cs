@@ -2,16 +2,18 @@
 using PostboxCommunicator.Models;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace PostboxCommunicator {
     public partial class ContactListView : Form {
+
         public ContactListView() {
 
             if (ApplicationState.user == null) {
-                LogInView logIn = new LogInView();
-                logIn.Show();
+                LogInView logInView = new LogInView();
+                logInView.Show();
             } else {
                 InitializeComponent();
                 menuPanel.BackColor = Color.FromArgb(255, 159, 170, 218);
@@ -49,12 +51,24 @@ namespace PostboxCommunicator {
             contact.Margin = new Padding(0, 2, 0, 2); 
 
             if( i % 2 == 0) {
-                contact.BackColor = Color.FromArgb(255, 122, 138, 204);
+                if (ApiMock.isContactOnline(user.id)) {
+                    contact.BackColor = Color.FromArgb(255, 90, 119, 237);
+                } else {
+                    contact.BackColor = Color.FromArgb(255, 122, 138, 204);
+                }
             } else {
-                contact.BackColor = Color.FromArgb(255, 147, 160, 214);
+                if (ApiMock.isContactOnline(user.id)) {
+                    contact.BackColor = Color.FromArgb(255, 89, 109, 192);
+                } else {
+                    contact.BackColor = Color.FromArgb(255, 147, 160, 214);
+                }
             }
 
-            contact.Text = user.displayName;
+            if( ApiMock.isContactOnline(user.id)) {
+                contact.Text = ":-) " + user.displayName;
+            } else {
+                contact.Text = ":-( " + user.displayName;
+            }
             contact.Tag = user;
             contact.Click += new EventHandler(label_Click); 
             contact.Width = contactFlowPanel.Width - 15;
@@ -65,6 +79,30 @@ namespace PostboxCommunicator {
             Label label = (Label)sender;
             ConversationView conversation = new ConversationView((UserModel)label.Tag);
             conversation.Show();
+        }
+
+        private void ContactListView_FormClosed(object sender, FormClosedEventArgs e) {
+            LogInView loginView = new LogInView();
+            loginView.Show();
+        }
+
+        private void logOutButton_Click(object sender, EventArgs e) {
+            ApplicationState.user = null;
+
+            this.closeAllFormsExceptMain();
+        }
+
+        //https://stackoverflow.com/a/9029389/6139118
+        private void closeAllFormsExceptMain() {
+            List<Form> openForms = new List<Form>();
+
+            FormCollection formsList = Application.OpenForms;
+
+            for (int i = formsList.Count - 1; i > 0; i--) {
+                if (formsList[i].Name != "LogInView") {
+                    formsList[i].Close();
+                }
+            }
         }
     }
 }

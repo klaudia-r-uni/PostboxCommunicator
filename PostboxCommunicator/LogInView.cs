@@ -51,5 +51,9 @@ namespace PostboxCommunicator {
         private bool credentialsValid(string login, string password) {
             return true; 
         }
+
+        private void LogInView_FormClosed(object sender, FormClosedEventArgs e) {
+            Application.Exit();
+        }
     }
 }

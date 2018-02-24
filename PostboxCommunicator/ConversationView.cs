@@ -9,7 +9,7 @@ namespace PostboxCommunicator {
     partial class ConversationView : Form {
         private ArrayList messages;
         private UserModel interlocutorModel;
-        private const int NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL = 2;
+        private const int NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL = 5;
 
         public ConversationView(UserModel interlocutorModel) {
             this.interlocutorModel = interlocutorModel;
@@ -24,10 +24,13 @@ namespace PostboxCommunicator {
             footerPanel.BackColor = Color.FromArgb(255, 212, 213, 214);
 
             this.displayMessages();
+           background.VerticalScroll.Value = background.VerticalScroll.Maximum;
+
             messageContentField.Focus();
         }
 
         private void handleScroll(object sender, ScrollEventArgs scroll = null, MouseEventArgs wheel = null) {
+
             //@TODO optimize 
             if (scroll != null) {
                 if (scroll.NewValue < 5) {
@@ -41,34 +44,23 @@ namespace PostboxCommunicator {
             }
         }
 
-        private int cnt = 0;
         private void loadMoreMessages() {
             ArrayList messages = this.getArrayListOfMessages();
 
-            this.messagesGrid.Visible = false;
-            //shift everything
-            int rowCount = this.messagesGrid.RowCount-1;
-            this.messagesGrid.RowCount += NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL;
-            for (int i=rowCount-1; i>=0; --i) {
-                Control row = this.messagesGrid.GetControlFromPosition(0, i);
-                this.messagesGrid.SetRow(row, i + NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL);
-            }
-            //insert new rows at the beginning 
-            for (int i = NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL; i >= 0; i--) {
-                ((MessageModel)messages[i]).content = (++cnt).ToString();
+            for (int i = messages.Count-1; i >= 0; i--) {
                 FlowLayoutPanel messageContainer = this.attachMessage((MessageModel)messages[i]);
                 this.messagesGrid.Controls.Add(messageContainer, 0, 0);
+                string a = "";
+
             }
-            this.messagesGrid.Visible = true;
         }
 
         private void displayMessages() {
             ArrayList messages = this.getArrayListOfMessages();
             foreach (MessageModel message in messages) {
                 FlowLayoutPanel messageContainer = this.attachMessage(message);
-                this.messagesGrid.Controls.Add(messageContainer, 0, this.messagesGrid.RowCount-1);
+                this.messagesGrid.Controls.Add(messageContainer, 0, this.messagesGrid.RowCount + 1);
                 this.messagesGrid.RowCount++;
-
             }
         }
 
