@@ -24,5 +24,14 @@ namespace PostboxCommunicator.Mocks {
             }
             return userModels; 
         }
+
+        public static bool isContactOnline(string contactId) {
+            Random r = new Random();
+            int rInt = r.Next(0, 1); //for ints
+            if( rInt == 0) {
+                return true;
+            }
+            return false; 
+        }
     }
 }

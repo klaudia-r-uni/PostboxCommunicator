@@ -20,6 +20,7 @@ namespace PostboxCommunicator {
         private int messageLower = 1200;
 
 
+        private const int NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL = 5;
 
         public ConversationView(UserModel interlocutorModel) {
             server = ClientServerCommunication.Instance;
@@ -41,6 +42,7 @@ namespace PostboxCommunicator {
         }
 
         private void handleScroll(object sender, ScrollEventArgs scroll = null, MouseEventArgs wheel = null) {
+
             //@TODO optimize 
             if (scroll != null) {
 
