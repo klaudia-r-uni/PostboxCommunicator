@@ -1,13 +1,16 @@
-﻿using PostboxCommunicator.Mocks;
-using PostboxCommunicator.Models;
+﻿using PostboxCommunicator.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using PostboxCommunicator.Infrastructure;
 
 namespace PostboxCommunicator {
-    public partial class ContactListView : Form {
+    public partial class ContactListView : Form{
+
+        private ClientServerCommunication server;
+        private Dictionary<String, ConversationView> conversations;
 
         public ContactListView() {
 
@@ -20,6 +23,11 @@ namespace PostboxCommunicator {
                 contactListPanel.BackColor = Color.FromArgb(255, 212, 213, 214);
                 footerPanel.BackColor = Color.FromArgb(255, 159, 170, 218);
 
+                server = ClientServerCommunication.Instance;
+                server.setContacts(this);
+
+                conversations = new Dictionary<String, ConversationView>();
+
                 //ConversationView conversation = new ConversationView();
                 //ArchiveView archive = new ArchiveView();
                 //FeedbackView feedback = new FeedbackView(); 
@@ -31,11 +39,15 @@ namespace PostboxCommunicator {
             }
         }
 
-        public void fillContactList() {
-            ArrayList users = ApiMock.getListOfContacts();
+        public async void fillContactList() {
+            
+            List<UserModel> users = await server.getUsers();
             int i = 0; 
             foreach( UserModel user in users) {
-                this.addNewContactToList(user, i);
+                if (!user.username.Equals(server.client.username)){
+                    this.addNewContactToList(user, i);
+                }
+                
                 i++;
             }
         }
@@ -78,9 +90,21 @@ namespace PostboxCommunicator {
         private void label_Click(object sender, EventArgs e) {
             Label label = (Label)sender;
             ConversationView conversation = new ConversationView((UserModel)label.Tag);
+            UserModel user = (UserModel)label.Tag;
+            conversations.Add(user.username, conversation);
             conversation.Show();
         }
 
+        public Boolean isOpen(String sender){
+            if (conversations.ContainsKey(sender)){
+                return true;
+            }
+            return false;
+        }
+
+        public ConversationView getConversation(String sender)
+        {
+            return conversations[sender];
         private void ContactListView_FormClosed(object sender, FormClosedEventArgs e) {
             LogInView loginView = new LogInView();
             loginView.Show();
