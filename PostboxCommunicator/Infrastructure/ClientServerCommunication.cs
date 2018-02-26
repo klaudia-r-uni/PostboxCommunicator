@@ -2,20 +2,20 @@
 using PostboxCommunicator.Models;
 using System;
 using System.Collections.Generic;
-using System.Drawing.Text;
-using System.Linq;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using WebSocketSharp;
 
 
 namespace PostboxCommunicator.Infrastructure {
     public sealed class ClientServerCommunication {
         private static readonly ClientServerCommunication instance = new ClientServerCommunication();
-        private static readonly HttpClient hClient = new HttpClient {BaseAddress = new Uri("http://localhost:3000/")};
-        public WebSocket sock;
+        private static readonly HttpClient hClient = new HttpClient {BaseAddress = new Uri("http://138.68.171.7") };
+        private WebSocket sock;
+        public UserModel client;
+        private ContactListView contacts;
         
 
         private ClientServerCommunication() {
@@ -31,20 +31,26 @@ namespace PostboxCommunicator.Infrastructure {
         }
 
         public async Task<string> login (LoginModel loginDetails) {
-            StringContent content = new StringContent(JsonConvert.SerializeObject(loginDetails),
-                Encoding.UTF8, "application/json");
+            StringContent content = new StringContent(JsonConvert.SerializeObject(loginDetails), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await hClient.PostAsync("api/login", content);
-            string error = await response.Content.ReadAsStringAsync();
+            string objString = await response.Content.ReadAsStringAsync();
+
+            var retObj = JObject.Parse(objString);
+            var error = retObj["error"].ToString();
 
             if (error == "") { 
                 connect();
+                client = new UserModel();
+                Console.WriteLine(retObj["result"]);
+                client.username = retObj["result"][0]["username"].ToString();
+                client.displayName = retObj["result"][0]["displayName"].ToString();
                 return "true";
             }
             return error;
         }
 
         private void connect(){
-            sock = new WebSocket("ws://localhost:8080");
+            sock = new WebSocket("ws://138.68.171.7");
 
             sock.OnOpen += (sender, e) => {
                 Console.WriteLine("onOpen");
@@ -54,13 +60,21 @@ namespace PostboxCommunicator.Infrastructure {
 
 
             sock.OnMessage += (sender, e) => {
-                //method from ui to pass message to.
+                MessageModel message  = JsonConvert.DeserializeObject<MessageModel>(e.Data);
+                if (contacts.isOpen(message.senderId)){
+                    contacts.getConversation(message.senderId).recMessage(message);
+                }
+                else{
+                    System.Console.WriteLine("notification");
+                    //contacts.setNotification();
+                }
             };
         }
 
         public void joinList(){
-            var json = $"{{ \"connection\": \"{"user1"}\"}}";
+            var json = $"{{ \"connection\": \"{client.username}\"}}";
             sock.Send(json);
+            
         }
 
         public void sendMessage(MessageModel message){
@@ -73,10 +87,35 @@ namespace PostboxCommunicator.Infrastructure {
   
             HttpResponseMessage response = await hClient.GetAsync("api/getUsers");
             users = JsonConvert.DeserializeObject<List<UserModel>>(response.Content.ReadAsStringAsync().Result);
-
+       
             return users;
             //check response successful.
             //https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
+        }
+
+        public async Task<List<MessageModel>> getMessages(int upper, string sender, string receiver){
+
+            var conversation = new[]{
+                new { senderId = sender, recipientId = receiver, upper = upper}
+            };
+
+            var convData = JsonConvert.SerializeObject(conversation);
+
+            StringContent content = new StringContent(convData, Encoding.UTF8, "application/json");
+            List<MessageModel> messages = new List<MessageModel>();
+
+            HttpResponseMessage response = await hClient.PostAsync("api/getMessages", content);
+
+            messages = JsonConvert.DeserializeObject<List<MessageModel>>(response.Content.ReadAsStringAsync().Result);
+
+            return messages;
+            //check response successful.
+            //https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
+        }
+
+
+        public void setContacts(ContactListView contacts){
+            this.contacts = contacts;
         }
 
 
