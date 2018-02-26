@@ -14,16 +14,16 @@ namespace PostboxCommunicator {
     public partial class ConversationView : Form {
         private UserModel interlocutorModel;
         ClientServerCommunication server;
-        private int messageUpper;
         private List<MessageModel> newMessageBuffer;
         private Boolean loadingMessages;
+        //get greatest id for convo.
+        private int messageLower = 1200;
 
 
 
         public ConversationView(UserModel interlocutorModel) {
             server = ClientServerCommunication.Instance;
             this.interlocutorModel = interlocutorModel;
-            messageUpper = 0;
             loadingMessages = false;
 
             InitializeComponent();
@@ -37,6 +37,7 @@ namespace PostboxCommunicator {
             footerPanel.BackColor = Color.FromArgb(255, 212, 213, 214);
             displayMessages();
             messageContentField.Focus();
+
         }
 
         private void handleScroll(object sender, ScrollEventArgs scroll = null, MouseEventArgs wheel = null) {
@@ -62,6 +63,7 @@ namespace PostboxCommunicator {
             loadingMessages = true;
 
             if (newMessageBuffer.Count == 0) {
+                newMessageBuffer.Clear();
                 newMessageBuffer = await getArrayListOfMessages();
             }
 
@@ -88,7 +90,6 @@ namespace PostboxCommunicator {
         }
 
 
-
         private async void displayMessages() {
             messagesGrid.Visible = false;
 
@@ -105,10 +106,9 @@ namespace PostboxCommunicator {
         }
 
         private async Task<List<MessageModel>> getArrayListOfMessages() {
-            int numberOfMessagesToGet = 15;
+            List<MessageModel> messagesFromServer = await server.getMessages(messageLower, server.client.username, interlocutorModel.username);
+            messageLower = messagesFromServer.Select(x => x.id).Min();
 
-            List<MessageModel> messagesFromServer = await server.getMessages(messageUpper, server.client.username, interlocutorModel.username);
-            messageUpper = messagesFromServer.Select(x => x.id).Max();
             return messagesFromServer;
         }
 
@@ -133,7 +133,6 @@ namespace PostboxCommunicator {
             messageContainer.Controls.Add(messageTime);
             messageContainer.Controls.Add(authorsMessage);
 
-            //background.Controls.Add(messageContainer);
             return messageContainer;
         }
 
@@ -153,13 +152,24 @@ namespace PostboxCommunicator {
             }
         }
 
-        public void recMessage(MessageModel message) {
-            FlowLayoutPanel messageContainer = attachMessage(message);
-            messagesGrid.Controls.Add(messageContainer);
-            background.ScrollControlIntoView(messageContainer);
-            messageContentField.Focus();
-            messageContentField.Clear();
-            messagesGrid.RowCount++;
+
+
+        //https://stackoverflow.com/questions/661561/how-do-i-update-the-gui-from-another-thread
+        //above for how to implement cross thread ui updating
+        public void recMessage(MessageModel message){
+            Invoke((MethodInvoker)(() =>
+                {
+                    FlowLayoutPanel messageContainer = attachMessage(message);
+                    messagesGrid.Controls.Add(messageContainer);
+                    background.ScrollControlIntoView(messageContainer);
+                    messageContentField.Focus();
+                    messageContentField.Clear();
+                    messagesGrid.RowCount++;
+                }
+            ));
+            
+            
+           
         }
 
         public void sendMessage(string message) {
