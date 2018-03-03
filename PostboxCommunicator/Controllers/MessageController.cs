@@ -1,10 +1,6 @@
 ﻿using PostboxCommunicator.Models;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PostboxCommunicator.Controllers {
@@ -18,8 +14,8 @@ namespace PostboxCommunicator.Controllers {
             newMessage.Multiline = true;
             newMessage.TabStop = false;
             newMessage.WordWrap = true;
-            newMessage.ScrollBars = ScrollBars.Vertical;
-            newMessage.BorderStyle = BorderStyle.FixedSingle; 
+            newMessage.BorderStyle = BorderStyle.None; 
+
             //TODO - prevent resizing problems 
             newMessage.Width = panel.Width - 100;
 
@@ -27,16 +23,19 @@ namespace PostboxCommunicator.Controllers {
 
             int messageTextBoxWidth = newMessage.Width;
             double numberOfCharsPerLine = (double)messageTextBoxWidth / characterLength;
-            int height = Convert.ToInt32((double)message.content.Length / numberOfCharsPerLine);
+            int height = Convert.ToInt32((double)message.content.Length / (0.8 * numberOfCharsPerLine));
 
             newMessage.Height = (height * 10) + 20; 
 
-            if( message.authorType != "user") {
-                newMessage.Margin = new Padding(95, 0, 0, 0);
+            if( message.recipientId == ApplicationState.user.id) {
+                newMessage.Margin = new Padding(95, 10, 0, 0);
+                //blue
                 newMessage.BackColor = Color.FromArgb(255, 159, 170, 218);
-            } else {
+            } else if ( message.senderId == ApplicationState.user.id ) {
+                newMessage.Margin = new Padding(10, 10, 0, 0);
+                //yellow
                 newMessage.BackColor = Color.FromArgb(255, 255, 250, 139);
-            }
+            } 
             return newMessage;
         }
     }
