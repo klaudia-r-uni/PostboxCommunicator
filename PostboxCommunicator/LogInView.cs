@@ -51,5 +51,11 @@ namespace PostboxCommunicator {
         private bool credentialsValid(string login, string password) {
             return true; 
         }
+
+        private void LogInView_Load(object sender, EventArgs e)
+        {
+
+
+        }
     }
 }
