@@ -4,7 +4,6 @@ namespace PostboxCommunicator {
     class ApplicationState {
 
         public static UserModel user;
-        
 
     }
 }

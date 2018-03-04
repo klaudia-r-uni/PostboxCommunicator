@@ -1,7 +1,7 @@
 ﻿namespace PostboxCommunicator.Models {
-    class UserModel {
+    public class UserModel {
 
-        public string id { get; set; }
+        public string username { get; set; }
         public string displayName { get; set; }
     }
 }
