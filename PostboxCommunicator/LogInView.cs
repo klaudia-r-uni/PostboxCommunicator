@@ -45,8 +45,31 @@ namespace PostboxCommunicator {
                     string error = await server.login(loginModel);
                     Console.Out.WriteLine(error);
 
-                    if (error == "true")
+                    string em = loginInput.Text;
+                    if (loginInput.TextLength == 0)
                     {
+                        lblLoginError.Text = "Field cannot be empty ";
+                    }
+                    else if (em.IndexOf("@") > -1)
+                    {
+
+                        if (em.IndexOf(".", em.IndexOf("@")) > em.IndexOf("@"))
+                        {
+
+                            lblerror2.Text = "this is not in email format";
+                        }
+                    }
+
+
+                    else if (passwordInput.TextLength == 0)
+                    {
+                        lblLoginError.Text = "Field cannot be empty ";
+
+                    }
+
+                   else if (error == "true")
+                    {
+            
                         server.joinList();
 
                         ApplicationState.user = new UserModel();
@@ -72,8 +95,63 @@ namespace PostboxCommunicator {
             }
         }
 
+
+        public void hackcheck()
+        {
+
+            List<string> banned = new List<string>();
+            banned.Add("\"");
+            banned.Add("\b");
+            banned.Add("\n");
+            banned.Add("\r");
+            banned.Add("\t");
+            banned.Add("\\");
+            banned.Add("INSERT");
+            banned.Add("AND");
+            banned.Add("FROM");
+            banned.Add("WHERE");
+
+            foreach (var b in banned)
+            {
+                if (loginInput.Text.Contains(b) || passwordInput.Text.Contains(b))
+                {
+                    lblerror2.Text = "Please stop trying to hack us :)";
+
+                }
+            }
+
+        }
+
+
+
+        private void loginInput_TextChanged(object sender, EventArgs e)
+        {
+            lblLoginError.Text = "";
+            lblerror2.Text = "";
+
+            hackcheck();
+        }
+
+
+
+        private void passwordInput_TextChanged(object sender, EventArgs e)
+        {
+            lblLoginError.Text = "";
+            lblerror2.Text = "";
+            hackcheck();
+        }
+
         private bool credentialsValid(string login, string password) {
             return true; 
+        }
+
+        private void LogInView_FormClosed(object sender, FormClosedEventArgs e) {
+            Application.Exit();
+        }
+
+        private void LogInView_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
