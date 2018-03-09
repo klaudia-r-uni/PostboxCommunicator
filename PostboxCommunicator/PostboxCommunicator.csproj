@@ -77,13 +77,18 @@
     <Compile Include="ConversationView.Designer.cs">
       <DependentUpon>ConversationView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ViewHelper.cs" />
     <Compile Include="HelpView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="HelpView.Designer.cs">
       <DependentUpon>HelpView.cs</DependentUpon>
     </Compile>
+	<Compile Include="FeedbackView.cs">
+		<SubType>Form</SubType>
+	</Compile>
+	<Compile Include="FeedbackView.Designer.cs">
+		<DependentUpon>FeedbackView.cs</DependentUpon>
+	</Compile>
     <Compile Include="Helpers\ViewHelper.cs" />
     <Compile Include="Infrastructure\ClientServerCommunication.cs" />
     <Compile Include="LogInView.cs">
@@ -112,6 +117,9 @@
     <EmbeddedResource Include="ConversationView.resx">
       <DependentUpon>ConversationView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FeedbackView.resx">
+      <DependentUpon>FeedbackView.cs</DependentUpon>
+    </EmbeddedResource>	
     <EmbeddedResource Include="HelpView.resx">
       <DependentUpon>HelpView.cs</DependentUpon>
     </EmbeddedResource>

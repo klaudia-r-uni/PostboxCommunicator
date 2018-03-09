@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using PostboxCommunicator.Infrastructure;
+using PostboxCommunicator.Mocks;
 
 namespace PostboxCommunicator {
     public partial class ContactListView : Form{
@@ -64,20 +65,20 @@ namespace PostboxCommunicator {
             contact.Margin = new Padding(0, 2, 0, 2); 
 
             if( i % 2 == 0) {
-                if (ApiMock.isContactOnline(user.id)) {
+                if (ApiMock.isContactOnline(user.username)) {
                     contact.BackColor = Color.FromArgb(255, 90, 119, 237);
                 } else {
                     contact.BackColor = Color.FromArgb(255, 122, 138, 204);
                 }
             } else {
-                if (ApiMock.isContactOnline(user.id)) {
+                if (ApiMock.isContactOnline(user.username)) {
                     contact.BackColor = Color.FromArgb(255, 89, 109, 192);
                 } else {
                     contact.BackColor = Color.FromArgb(255, 147, 160, 214);
                 }
             }
 
-            if( ApiMock.isContactOnline(user.id)) {
+            if( ApiMock.isContactOnline(user.username)) {
                 contact.Text = ":-) " + user.displayName;
             } else {
                 contact.Text = ":-( " + user.displayName;
@@ -100,9 +101,6 @@ namespace PostboxCommunicator {
         private void helpButton_Click(object sender, EventArgs e) {
             HelpView help = new HelpView();
             help.Show();
-            UserModel user = (UserModel)label.Tag;
-            conversations.Add(user.username, conversation);
-            conversation.Show();
         }
 
         public Boolean isOpen(String sender){
@@ -112,9 +110,10 @@ namespace PostboxCommunicator {
             return false;
         }
 
-        public ConversationView getConversation(String sender)
-        {
+        public ConversationView getConversation(String sender) {
             return conversations[sender];
+        }
+
         private void ContactListView_FormClosed(object sender, FormClosedEventArgs e) {
             LogInView loginView = new LogInView();
             loginView.Show();
