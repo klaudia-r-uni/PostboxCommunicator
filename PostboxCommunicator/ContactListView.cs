@@ -46,7 +46,6 @@ namespace PostboxCommunicator {
                 if (!user.username.Equals(server.client.username)){
                     this.addNewContactToList(user, i);
                 }
-                
                 i++;
             }
         }
@@ -92,6 +91,15 @@ namespace PostboxCommunicator {
         public ConversationView getConversation(String sender)
         {
             return conversations[sender];
+        }
+
+        public void updateOnlineUsers(List<string> clients) {
+            Invoke((MethodInvoker)(() =>
+                {
+                    
+                //code for showing if a user is online.
+                }
+            ));
         }
     }
 }
