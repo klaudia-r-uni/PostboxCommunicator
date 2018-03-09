@@ -70,12 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationState.cs" />
-    <Compile Include="ArchiveView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ArchiveView.Designer.cs">
-      <DependentUpon>ArchiveView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="ConversationView.cs">
       <SubType>Form</SubType>
@@ -83,11 +77,12 @@
     <Compile Include="ConversationView.Designer.cs">
       <DependentUpon>ConversationView.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeedbackView.cs">
+    <Compile Include="Helpers\ViewHelper.cs" />
+    <Compile Include="HelpView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedbackView.Designer.cs">
-      <DependentUpon>FeedbackView.cs</DependentUpon>
+    <Compile Include="HelpView.Designer.cs">
+      <DependentUpon>HelpView.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ViewHelper.cs" />
     <Compile Include="Infrastructure\ClientServerCommunication.cs" />
@@ -109,14 +104,16 @@
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ArchiveView.resx">
-      <DependentUpon>ArchiveView.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ConversationView.resx">
       <DependentUpon>ConversationView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedbackView.resx">
-      <DependentUpon>FeedbackView.cs</DependentUpon>
+    <EmbeddedResource Include="HelpView.resx">
+      <DependentUpon>HelpView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LogInView.resx">
       <DependentUpon>LogInView.cs</DependentUpon>
@@ -133,6 +130,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="bin\Debug\PostboxCommunicator.exe.config" />
     <None Include="bin\Debug\PostboxCommunicator.vshost.exe.config" />
     <None Include="bin\Debug\PostboxCommunicator.vshost.exe.manifest" />
@@ -146,6 +147,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\UserManual.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
