@@ -5,16 +5,13 @@ using System.Drawing;
 using System.Windows.Forms;
 using System;
 
-namespace PostboxCommunicator
-{
-    partial class ConversationView : Form
-    {
+namespace PostboxCommunicator {
+    partial class ConversationView : Form {
         private ArrayList messages;
         private UserModel interlocutorModel;
         private const int NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL = 2;
 
-        public ConversationView(UserModel interlocutorModel)
-        {
+        public ConversationView(UserModel interlocutorModel) {
             this.interlocutorModel = interlocutorModel;
             this.messages = new ArrayList();
 
@@ -30,42 +27,34 @@ namespace PostboxCommunicator
             messageContentField.Focus();
         }
 
-        private void handleScroll(object sender, ScrollEventArgs scroll = null, MouseEventArgs wheel = null)
-        {
+        private void handleScroll(object sender, ScrollEventArgs scroll = null, MouseEventArgs wheel = null) {
             //@TODO optimize 
-            if (scroll != null)
-            {
-                if (scroll.NewValue < 5)
-                {
+            if (scroll != null) {
+                if (scroll.NewValue < 5) {
                     this.loadMoreMessages();
                 }
             }
-            if (wheel != null)
-            {
-                if (background.VerticalScroll.Value < 5)
-                {
+            if (wheel != null) {
+                if (background.VerticalScroll.Value < 5) {
                     this.loadMoreMessages();
                 }
             }
         }
 
         private int cnt = 0;
-        private void loadMoreMessages()
-        {
+        private void loadMoreMessages() {
             ArrayList messages = this.getArrayListOfMessages();
 
             this.messagesGrid.Visible = false;
             //shift everything
             int rowCount = this.messagesGrid.RowCount - 1;
             this.messagesGrid.RowCount += NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL;
-            for (int i = rowCount - 1; i >= 0; --i)
-            {
+            for (int i = rowCount - 1; i >= 0; --i) {
                 Control row = this.messagesGrid.GetControlFromPosition(0, i);
                 this.messagesGrid.SetRow(row, i + NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL);
             }
             //insert new rows at the beginning 
-            for (int i = NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL; i >= 0; i--)
-            {
+            for (int i = NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL; i >= 0; i--) {
                 ((MessageModel)messages[i]).content = (++cnt).ToString();
                 FlowLayoutPanel messageContainer = this.attachMessage((MessageModel)messages[i]);
                 this.messagesGrid.Controls.Add(messageContainer, 0, 0);
@@ -73,36 +62,31 @@ namespace PostboxCommunicator
             this.messagesGrid.Visible = true;
         }
 
-        private void displayMessages()
-        {
+        private void displayMessages() {
             ArrayList messages = this.getArrayListOfMessages();
-            foreach (MessageModel message in messages)
-            {
+            foreach (MessageModel message in messages) {
                 FlowLayoutPanel messageContainer = this.attachMessage(message);
                 this.messagesGrid.Controls.Add(messageContainer, 0, this.messagesGrid.RowCount - 1);
                 this.messagesGrid.RowCount++;
+                background.ScrollControlIntoView(messageContainer);
 
             }
         }
 
-        private ArrayList getArrayListOfMessages()
-        {
+        private ArrayList getArrayListOfMessages() {
             int numberOfMessagesToShow = 15;
 
             ArrayList messages = new ArrayList();
 
-            for (int i = 0; i < numberOfMessagesToShow; i++)
-            {
+            for (int i = 0; i < numberOfMessagesToShow; i++) {
                 MessageModel message = new MessageModel();
 
-                if (i % 2 == 0)
-                {
+                if (i % 2 == 0) {
                     message.content = i.ToString() + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vestibulum accumsan eros, quis sodales leo suscipit vel. Duis finibus dictum laoreet. Ut lobortis odio libero, a vulputate nibh mattis eget. Quisque imperdiet, nisl sit amet dapibus lacinia, magna dui convallis ipsum, non dictum velit ligula et augue. Maecenas a ipsum risus. Praesent in dolor sapien. Etiam malesuada diam vitae magna posuere dapibus ac non arcu. Aliquam vehicula turpis mi, ac varius purus porttitor non. Nulla facilisi. Vestibulum laoreet sit amet metus non interdum. Nam libero elit, luctus nec ipsum non, molestie porta justo. Suspendisse ut tincidunt nunc. Vestibulum ultrices faucibus elit a dapibus. Sed fermentum, massa ut lacinia interdum, mauris sapien congue mi, vel imperdiet massa orci sagittis nulla. Aliquam eu facilisis dui, vel dapibus erat.";
                     message.recipientId = ApplicationState.user.id;
                     message.senderId = this.interlocutorModel.id;
                 }
-                else
-                {
+                else {
                     message.content = i.ToString() + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vestibulum accumsan eros, quis sodales leo suscipit vel. Duis finibus dictum laoreet. Ut lobortis odio libero, a vulputate nibh mattis eget. Quisque imperdiet, nisl sit amet dapibus lacinia, magna dui convallis ipsum, non dictum velit ligula et augue. Maecenas a ipsum risus. Praesent in dolor sapien. Etiam malesuada diam vitae magna posuere dapibus ac non arcu. Aliquam vehicula turpis mi, ac varius purus porttitor non. Nulla facilisi. Vestibulum laoreet sit amet metus non interdum. Nam libero elit,";
                     message.recipientId = interlocutorModel.id;
                     message.senderId = ApplicationState.user.id;
@@ -112,8 +96,7 @@ namespace PostboxCommunicator
             return messages;
         }
 
-        private FlowLayoutPanel attachMessage(MessageModel message)
-        {
+        private FlowLayoutPanel attachMessage(MessageModel message) {
             Label messageTime = new Label();
             messageTime.Text = message.dateTime.ToString();
             messageTime.TextAlign = ContentAlignment.MiddleRight;
@@ -138,36 +121,28 @@ namespace PostboxCommunicator
             return messageContainer;
         }
 
-        private void ConversationView_Scroll(object sender, ScrollEventArgs e)
-        {
+        private void ConversationView_Scroll(object sender, ScrollEventArgs e) {
             this.handleScroll(sender, e, null);
         }
 
-        private void background_MouseWheel(object sender, MouseEventArgs e)
-        {
+        private void background_MouseWheel(object sender, MouseEventArgs e) {
             this.handleScroll(sender, null, e);
         }
 
-        private void sendButton_Click(object sender, EventArgs e)
-        {
+        private void sendButton_Click(object sender, EventArgs e) {
             string input = messageContentField.Text;
-            if (!string.IsNullOrWhiteSpace(input))
-            {
+            if (!string.IsNullOrWhiteSpace(input)) {
                 sendMessage(input);
             }
         }
 
-        public void sendMessage(string message)
-        {
-            MessageModel sendMessage = new MessageModel
-            {
+        public void sendMessage(string message) {
+            MessageModel sendMessage = new MessageModel {
                 content = message,
                 recipientId = ApplicationState.user.id,
                 senderId = this.interlocutorModel.id,
                 dateTime = DateTime.Now
-          
-
-        };
+            };
 
             FlowLayoutPanel messageContainer = this.attachMessage((MessageModel)sendMessage);
             this.messagesGrid.Controls.Add(messageContainer, 0, this.messagesGrid.RowCount - 1);
@@ -180,11 +155,9 @@ namespace PostboxCommunicator
 
         private void messageContentField_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
+            if (e.KeyCode == Keys.Enter) {
                 string input = messageContentField.Text;
-                if (!string.IsNullOrWhiteSpace(input))
-                {
+                if (!string.IsNullOrWhiteSpace(input)) {
                     sendMessage(input);
                 }
             }

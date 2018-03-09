@@ -3,6 +3,7 @@ using PostboxCommunicator.Models;
 using System;
 using System.Collections;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace PostboxCommunicator {
@@ -63,8 +64,16 @@ namespace PostboxCommunicator {
 
         private void label_Click(object sender, EventArgs e) {
             Label label = (Label)sender;
+
             ConversationView conversation = new ConversationView((UserModel)label.Tag);
+            if (Application.OpenForms.OfType<ConversationView>().Count() == 1)
+                Application.OpenForms.OfType<ConversationView>().First().Close();
             conversation.Show();
+        }
+
+        private void helpButton_Click(object sender, EventArgs e) {
+            HelpView help = new HelpView();
+            help.Show();
         }
     }
 }
