@@ -31,17 +31,18 @@
             // contentPanel
             // 
             this.contentPanel.Controls.Add(this.messageContent);
-            this.contentPanel.Location = new System.Drawing.Point(16, 15);
-            this.contentPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.contentPanel.Location = new System.Drawing.Point(25, 18);
+            this.contentPanel.Margin = new System.Windows.Forms.Padding(4);
             this.contentPanel.Name = "contentPanel";
             this.contentPanel.Size = new System.Drawing.Size(519, 183);
-            this.contentPanel.TabIndex = 0;
+            this.contentPanel.TabIndex = 1;
             // 
             // messageContent
             // 
             this.messageContent.Location = new System.Drawing.Point(31, 17);
-            this.messageContent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.messageContent.Margin = new System.Windows.Forms.Padding(4);
             this.messageContent.Name = "messageContent";
+            this.messageContent.ReadOnly = true;
             this.messageContent.Size = new System.Drawing.Size(457, 143);
             this.messageContent.TabIndex = 0;
             this.messageContent.Text = "";
@@ -50,9 +51,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(568, 218);
+            this.ClientSize = new System.Drawing.Size(568, 219);
             this.Controls.Add(this.contentPanel);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FeedbackView";
             this.Text = "FeedbackView";
             this.Load += new System.EventHandler(this.FeedbackView_Load);
