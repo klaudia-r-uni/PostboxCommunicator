@@ -1,4 +1,5 @@
 ﻿using PostboxCommunicator.Helpers;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -35,10 +36,6 @@ namespace PostboxCommunicator
             MsgBox.ShowDialog();
         }
 
-        private void FeedbackView_Load(object sender, EventArgs e)
-        {
-
-        }
 
         //Gets the message details that are to be displayed 
 
