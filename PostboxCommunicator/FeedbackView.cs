@@ -20,9 +20,15 @@ namespace PostboxCommunicator {
             ViewHelper.centerThePanel(contentPanel, this); 
         }
 
+        //Gets the message details that are to be displayed 
+
         public void setCustomizedMessage(string message) {
             this.messageContent.Text = message;
         }
 
+        private void FeedbackView_Load(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }

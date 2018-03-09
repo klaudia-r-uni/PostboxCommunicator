@@ -24,6 +24,8 @@
         /// </summary>
         private void InitializeComponent() {
             this.logInBackgroundPanel = new System.Windows.Forms.Panel();
+            this.labelLoginError = new System.Windows.Forms.Label();
+            this.labelError2 = new System.Windows.Forms.Label();
             this.sendButton = new System.Windows.Forms.Button();
             this.passwordInput = new System.Windows.Forms.TextBox();
             this.loginInput = new System.Windows.Forms.TextBox();
@@ -35,21 +37,41 @@
             // logInBackgroundPanel
             // 
             this.logInBackgroundPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.logInBackgroundPanel.Controls.Add(this.labelLoginError);
+            this.logInBackgroundPanel.Controls.Add(this.labelError2);
             this.logInBackgroundPanel.Controls.Add(this.sendButton);
             this.logInBackgroundPanel.Controls.Add(this.passwordInput);
             this.logInBackgroundPanel.Controls.Add(this.loginInput);
             this.logInBackgroundPanel.Controls.Add(this.passwordLabel);
             this.logInBackgroundPanel.Controls.Add(this.loginLabel);
             this.logInBackgroundPanel.Location = new System.Drawing.Point(29, 27);
-            this.logInBackgroundPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.logInBackgroundPanel.Margin = new System.Windows.Forms.Padding(4);
             this.logInBackgroundPanel.Name = "logInBackgroundPanel";
             this.logInBackgroundPanel.Size = new System.Drawing.Size(545, 215);
             this.logInBackgroundPanel.TabIndex = 0;
             // 
+            // labelLoginError
+            // 
+            this.labelLoginError.AutoSize = true;
+            this.labelLoginError.Location = new System.Drawing.Point(82, 158);
+            this.labelLoginError.Name = "labelLoginError";
+            this.labelLoginError.Size = new System.Drawing.Size(46, 17);
+            this.labelLoginError.TabIndex = 6;
+            this.labelLoginError.Text = "label2";
+            // 
+            // labelError2
+            // 
+            this.labelError2.AutoSize = true;
+            this.labelError2.Location = new System.Drawing.Point(79, 183);
+            this.labelError2.Name = "labelError2";
+            this.labelError2.Size = new System.Drawing.Size(46, 17);
+            this.labelError2.TabIndex = 5;
+            this.labelError2.Text = "label1";
+            // 
             // sendButton
             // 
             this.sendButton.Location = new System.Drawing.Point(392, 148);
-            this.sendButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sendButton.Margin = new System.Windows.Forms.Padding(4);
             this.sendButton.Name = "sendButton";
             this.sendButton.Size = new System.Drawing.Size(100, 28);
             this.sendButton.TabIndex = 4;
@@ -60,7 +82,7 @@
             // passwordInput
             // 
             this.passwordInput.Location = new System.Drawing.Point(187, 92);
-            this.passwordInput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.passwordInput.Margin = new System.Windows.Forms.Padding(4);
             this.passwordInput.Name = "passwordInput";
             this.passwordInput.Size = new System.Drawing.Size(305, 22);
             this.passwordInput.TabIndex = 3;
@@ -68,7 +90,7 @@
             // loginInput
             // 
             this.loginInput.Location = new System.Drawing.Point(187, 48);
-            this.loginInput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.loginInput.Margin = new System.Windows.Forms.Padding(4);
             this.loginInput.Name = "loginInput";
             this.loginInput.Size = new System.Drawing.Size(305, 22);
             this.loginInput.TabIndex = 2;
@@ -101,7 +123,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(613, 258);
             this.Controls.Add(this.logInBackgroundPanel);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(631, 305);
             this.MinimumSize = new System.Drawing.Size(631, 305);
@@ -121,5 +143,7 @@
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.TextBox passwordInput;
         private System.Windows.Forms.TextBox loginInput;
+        private System.Windows.Forms.Label labelLoginError;
+        private System.Windows.Forms.Label labelError2;
     }
 }

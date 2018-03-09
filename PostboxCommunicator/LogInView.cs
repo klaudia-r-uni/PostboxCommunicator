@@ -46,24 +46,27 @@ namespace PostboxCommunicator {
                     Console.Out.WriteLine(error);
 
                     string em = loginInput.Text;
+
+                    //checks that the login input isn't empty
                     if (loginInput.TextLength == 0)
                     {
-                        lblLoginError.Text = "Field cannot be empty ";
+                        labelLoginError.Text = "Field cannot be empty ";
                     }
+                    //checks that the login input contains a @ symbol
                     else if (em.IndexOf("@") > -1)
                     {
 
                         if (em.IndexOf(".", em.IndexOf("@")) > em.IndexOf("@"))
                         {
 
-                            lblerror2.Text = "this is not in email format";
+                            labelLoginError.Text = "this is not in email format";
                         }
                     }
 
-
+                    //checks that the passwordInput isn't empty
                     else if (passwordInput.TextLength == 0)
                     {
-                        lblLoginError.Text = "Field cannot be empty ";
+                        labelLoginError.Text = "Field cannot be empty ";
 
                     }
 
@@ -115,7 +118,7 @@ namespace PostboxCommunicator {
             {
                 if (loginInput.Text.Contains(b) || passwordInput.Text.Contains(b))
                 {
-                    lblerror2.Text = "Please stop trying to hack us :)";
+                    labelError2.Text = "Please stop trying to hack us :)";
 
                 }
             }
@@ -126,8 +129,8 @@ namespace PostboxCommunicator {
 
         private void loginInput_TextChanged(object sender, EventArgs e)
         {
-            lblLoginError.Text = "";
-            lblerror2.Text = "";
+            labelLoginError.Text = "";
+            labelError2.Text = "";
 
             hackcheck();
         }
@@ -136,8 +139,8 @@ namespace PostboxCommunicator {
 
         private void passwordInput_TextChanged(object sender, EventArgs e)
         {
-            lblLoginError.Text = "";
-            lblerror2.Text = "";
+            labelLoginError.Text = "";
+            labelError2.Text = "";
             hackcheck();
         }
 
@@ -150,6 +153,11 @@ namespace PostboxCommunicator {
         }
 
         private void LogInView_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void logInBackgroundPanel_Paint(object sender, PaintEventArgs e)
         {
 
         }

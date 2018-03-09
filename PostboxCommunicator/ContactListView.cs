@@ -64,20 +64,20 @@ namespace PostboxCommunicator {
             contact.Margin = new Padding(0, 2, 0, 2); 
 
             if( i % 2 == 0) {
-                if (ApiMock.isContactOnline(user.id)) {
+                if (ApiMock.isContactOnline(user.username)) {
                     contact.BackColor = Color.FromArgb(255, 90, 119, 237);
                 } else {
                     contact.BackColor = Color.FromArgb(255, 122, 138, 204);
                 }
             } else {
-                if (ApiMock.isContactOnline(user.id)) {
+                if (ApiMock.isContactOnline(user.username)) {
                     contact.BackColor = Color.FromArgb(255, 89, 109, 192);
                 } else {
                     contact.BackColor = Color.FromArgb(255, 147, 160, 214);
                 }
             }
 
-            if( ApiMock.isContactOnline(user.id)) {
+            if( ApiMock.isContactOnline(user.username)) {
                 contact.Text = ":-) " + user.displayName;
             } else {
                 contact.Text = ":-( " + user.displayName;
@@ -106,6 +106,7 @@ namespace PostboxCommunicator {
         public ConversationView getConversation(String sender)
         {
             return conversations[sender];
+        }
         private void ContactListView_FormClosed(object sender, FormClosedEventArgs e) {
             LogInView loginView = new LogInView();
             loginView.Show();
