@@ -26,7 +26,7 @@
             this.menuPanel = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.archiveButton = new System.Windows.Forms.Button();
+            this.helpButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.contactListPanel = new System.Windows.Forms.Panel();
             this.contactFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
@@ -41,7 +41,7 @@
             // 
             this.menuPanel.Controls.Add(this.label2);
             this.menuPanel.Controls.Add(this.label1);
-            this.menuPanel.Controls.Add(this.archiveButton);
+            this.menuPanel.Controls.Add(this.helpButton);
             this.menuPanel.Controls.Add(this.panel2);
             this.menuPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.menuPanel.Location = new System.Drawing.Point(0, 0);
@@ -66,16 +66,16 @@
             this.label1.Size = new System.Drawing.Size(0, 25);
             this.label1.TabIndex = 0;
             // 
-            // archiveButton
+            // helpButton
             // 
-            this.archiveButton.Location = new System.Drawing.Point(24, 17);
-            this.archiveButton.Margin = new System.Windows.Forms.Padding(6);
-            this.archiveButton.Name = "archiveButton";
-            this.archiveButton.Size = new System.Drawing.Size(150, 44);
-            this.archiveButton.TabIndex = 1;
-            this.archiveButton.Text = "Archive";
-            this.archiveButton.UseVisualStyleBackColor = true;
-
+            this.helpButton.Location = new System.Drawing.Point(24, 17);
+            this.helpButton.Margin = new System.Windows.Forms.Padding(6);
+            this.helpButton.Name = "helpButton";
+            this.helpButton.Size = new System.Drawing.Size(150, 44);
+            this.helpButton.TabIndex = 1;
+            this.helpButton.Text = "Help";
+            this.helpButton.UseVisualStyleBackColor = true;
+            this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
             // 
             // panel2
             // 
@@ -137,7 +137,7 @@
             this.Controls.Add(this.contactListPanel);
             this.Controls.Add(this.menuPanel);
             this.Margin = new System.Windows.Forms.Padding(6);
-            this.Name = "MainWindow";
+            this.Name = "ContactListView";
             this.Text = "Secure Messaging System";
             this.menuPanel.ResumeLayout(false);
             this.menuPanel.PerformLayout();
@@ -154,7 +154,7 @@
         private System.Windows.Forms.Panel contactListPanel;
         private System.Windows.Forms.Panel footerPanel;
         private System.Windows.Forms.Button logOutButton;
-        private System.Windows.Forms.Button archiveButton;
+        private System.Windows.Forms.Button helpButton;
         private System.Windows.Forms.FlowLayoutPanel contactFlowPanel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

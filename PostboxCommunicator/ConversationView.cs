@@ -67,7 +67,6 @@ namespace PostboxCommunicator {
                 newMessageBuffer = await getArrayListOfMessages();
             }
 
-
             //sets message
             MessageModel message = newMessageBuffer[0];
             newMessageBuffer.RemoveAt(0);
@@ -88,7 +87,6 @@ namespace PostboxCommunicator {
 
             loadingMessages = false;
         }
-
 
         private async void displayMessages() {
             messagesGrid.Visible = false;
@@ -152,7 +150,6 @@ namespace PostboxCommunicator {
             }
         }
 
-
         //https://stackoverflow.com/questions/661561/how-do-i-update-the-gui-from-another-thread
         //above for how to implement cross thread ui updating
         public void recMessage(MessageModel message){
@@ -183,7 +180,6 @@ namespace PostboxCommunicator {
             messageContentField.Focus();
             messageContentField.Clear();
             messagesGrid.RowCount++;
-
         }
 
         private void messageContentField_KeyUp(object sender, KeyEventArgs e) {

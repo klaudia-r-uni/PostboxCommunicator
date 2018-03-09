@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using PostboxCommunicator.Infrastructure;
+using PostboxCommunicator.Mocks;
 
 namespace PostboxCommunicator {
     public partial class ContactListView : Form{
@@ -61,6 +63,7 @@ namespace PostboxCommunicator {
             contact.Margin = new Padding(0, 2, 0, 2); 
 
             if( i % 2 == 0) {
+
                 contact.BackColor = Color.FromArgb(255, 122, 138, 204);
             } else {
                 contact.BackColor = Color.FromArgb(255, 147, 160, 214);
@@ -75,10 +78,16 @@ namespace PostboxCommunicator {
 
         private void label_Click(object sender, EventArgs e) {
             Label label = (Label)sender;
+
             ConversationView conversation = new ConversationView((UserModel)label.Tag);
-            UserModel user = (UserModel)label.Tag;
-            conversations.Add(user.username, conversation);
+            if (Application.OpenForms.OfType<ConversationView>().Count() == 1)
+                Application.OpenForms.OfType<ConversationView>().First().Close();
             conversation.Show();
+        }
+
+        private void helpButton_Click(object sender, EventArgs e) {
+            HelpView help = new HelpView();
+            help.Show();
         }
 
         public Boolean isOpen(String sender){
@@ -88,9 +97,19 @@ namespace PostboxCommunicator {
             return false;
         }
 
-        public ConversationView getConversation(String sender)
-        {
+        public ConversationView getConversation(String sender) {
             return conversations[sender];
+        }
+
+        private void ContactListView_FormClosed(object sender, FormClosedEventArgs e) {
+            LogInView loginView = new LogInView();
+            loginView.Show();
+        }
+
+        private void logOutButton_Click(object sender, EventArgs e) {
+            ApplicationState.user = null;
+
+            this.closeAllFormsExceptMain();
         }
 
         public void updateOnlineUsers(List<string> clients) {
