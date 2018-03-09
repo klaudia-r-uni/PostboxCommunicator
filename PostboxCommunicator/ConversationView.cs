@@ -42,7 +42,6 @@ namespace PostboxCommunicator {
         }
 
         private void handleScroll(object sender, ScrollEventArgs scroll = null, MouseEventArgs wheel = null) {
-
             //@TODO optimize 
             if (scroll != null) {
 
@@ -69,7 +68,6 @@ namespace PostboxCommunicator {
                 newMessageBuffer = await getArrayListOfMessages();
             }
 
-
             //sets message
             MessageModel message = newMessageBuffer[0];
             newMessageBuffer.RemoveAt(0);
@@ -90,7 +88,6 @@ namespace PostboxCommunicator {
 
             loadingMessages = false;
         }
-
 
         private async void displayMessages() {
             messagesGrid.Visible = false;
@@ -154,7 +151,13 @@ namespace PostboxCommunicator {
             }
         }
 
-
+        public void sendMessage(string message) {
+            MessageModel sendMessage = new MessageModel {
+                content = message,
+                recipientId = ApplicationState.user.id,
+                senderId = this.interlocutorModel.id,
+                dateTime = DateTime.Now
+            };
 
         //https://stackoverflow.com/questions/661561/how-do-i-update-the-gui-from-another-thread
         //above for how to implement cross thread ui updating
