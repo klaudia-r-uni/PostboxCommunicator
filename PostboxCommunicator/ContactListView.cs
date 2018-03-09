@@ -112,6 +112,20 @@ namespace PostboxCommunicator {
             this.closeAllFormsExceptMain();
         }
 
+
+        //https://stackoverflow.com/a/9029389/6139118
+        private void closeAllFormsExceptMain() {
+            List<Form> openForms = new List<Form>();
+
+            FormCollection formsList = Application.OpenForms;
+
+            for (int i = formsList.Count - 1; i > 0; i--) {
+                if (formsList[i].Name != "LogInView") {
+                    formsList[i].Close();
+                }
+            }
+        }
+
         public void updateOnlineUsers(List<string> clients) {
             Invoke((MethodInvoker)(() =>
                 {
