@@ -100,7 +100,6 @@
             this.MinimumSize = new System.Drawing.Size(478, 257);
             this.Name = "LogInView";
             this.Text = "Log in! ";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LogInView_FormClosed);
             this.logInBackgroundPanel.ResumeLayout(false);
             this.logInBackgroundPanel.PerformLayout();
             this.ResumeLayout(false);
