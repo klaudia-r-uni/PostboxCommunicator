@@ -102,6 +102,7 @@ namespace PostboxCommunicator {
 
             messagesGrid.Visible = true;
             background.ScrollControlIntoView(messageContainer);
+            this.Width += 20; 
         }
 
         private async Task<List<MessageModel>> getArrayListOfMessages() {
@@ -171,10 +172,7 @@ namespace PostboxCommunicator {
                     messageContentField.Clear();
                     messagesGrid.RowCount++;
                 }
-            ));
-            
-            
-           
+            ));           
         }
 
         public void sendMessage(string message) {
@@ -184,8 +182,6 @@ namespace PostboxCommunicator {
             sendMessage.recipientId = interlocutorModel.username;
             sendMessage.senderId = server.client.username;
             sendMessage.dateTime = DateTime.Now.ToString();
-
-
 
             server.sendMessage(sendMessage);
             FlowLayoutPanel messageContainer = attachMessage(sendMessage);
