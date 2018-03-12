@@ -45,34 +45,8 @@ namespace PostboxCommunicator {
                     string error = await server.login(loginModel);
                     Console.Out.WriteLine(error);
 
-                    string em = loginInput.Text;
-
-                    //checks that the login input isn't empty
-                    if (loginInput.TextLength == 0)
+                    if (error == "true")
                     {
-                        labelLoginError.Text = "Field cannot be empty ";
-                    }
-                    //checks that the login input contains a @ symbol
-                    else if (em.IndexOf("@") > -1)
-                    {
-
-                        if (em.IndexOf(".", em.IndexOf("@")) > em.IndexOf("@"))
-                        {
-
-                            labelLoginError.Text = "this is not in email format";
-                        }
-                    }
-
-                    //checks that the passwordInput isn't empty
-                    else if (passwordInput.TextLength == 0)
-                    {
-                        labelLoginError.Text = "Field cannot be empty ";
-
-                    }
-
-                   else if (error == "true")
-                    {
-            
                         server.joinList();
 
                         ApplicationState.user = new UserModel();
@@ -98,68 +72,8 @@ namespace PostboxCommunicator {
             }
         }
 
-
-        public void hackcheck()
-        {
-
-            List<string> banned = new List<string>();
-            banned.Add("\"");
-            banned.Add("\b");
-            banned.Add("\n");
-            banned.Add("\r");
-            banned.Add("\t");
-            banned.Add("\\");
-            banned.Add("INSERT");
-            banned.Add("AND");
-            banned.Add("FROM");
-            banned.Add("WHERE");
-
-            foreach (var b in banned)
-            {
-                if (loginInput.Text.Contains(b) || passwordInput.Text.Contains(b))
-                {
-                    labelError2.Text = "Please stop trying to hack us :)";
-
-                }
-            }
-
-        }
-
-
-
-        private void loginInput_TextChanged(object sender, EventArgs e)
-        {
-            labelLoginError.Text = "";
-            labelError2.Text = "";
-
-            hackcheck();
-        }
-
-
-
-        private void passwordInput_TextChanged(object sender, EventArgs e)
-        {
-            labelLoginError.Text = "";
-            labelError2.Text = "";
-            hackcheck();
-        }
-
         private bool credentialsValid(string login, string password) {
             return true; 
-        }
-
-        private void LogInView_FormClosed(object sender, FormClosedEventArgs e) {
-            Application.Exit();
-        }
-
-        private void LogInView_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void logInBackgroundPanel_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

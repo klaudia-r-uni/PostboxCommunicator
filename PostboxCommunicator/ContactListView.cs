@@ -1,8 +1,8 @@
 ﻿using PostboxCommunicator.Models;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using PostboxCommunicator.Infrastructure;
 using PostboxCommunicator.Mocks;
@@ -16,8 +16,8 @@ namespace PostboxCommunicator {
         public ContactListView() {
 
             if (ApplicationState.user == null) {
-                LogInView logInView = new LogInView();
-                logInView.Show();
+                LogInView logIn = new LogInView();
+                logIn.Show();
             } else {
                 InitializeComponent();
                 menuPanel.BackColor = Color.FromArgb(255, 159, 170, 218);
@@ -48,7 +48,6 @@ namespace PostboxCommunicator {
                 if (!user.username.Equals(server.client.username)){
                     this.addNewContactToList(user, i);
                 }
-                
                 i++;
             }
         }
@@ -64,24 +63,13 @@ namespace PostboxCommunicator {
             contact.Margin = new Padding(0, 2, 0, 2); 
 
             if( i % 2 == 0) {
-                if (ApiMock.isContactOnline(user.username)) {
-                    contact.BackColor = Color.FromArgb(255, 90, 119, 237);
-                } else {
-                    contact.BackColor = Color.FromArgb(255, 122, 138, 204);
-                }
+
+                contact.BackColor = Color.FromArgb(255, 122, 138, 204);
             } else {
-                if (ApiMock.isContactOnline(user.username)) {
-                    contact.BackColor = Color.FromArgb(255, 89, 109, 192);
-                } else {
-                    contact.BackColor = Color.FromArgb(255, 147, 160, 214);
-                }
+                contact.BackColor = Color.FromArgb(255, 147, 160, 214);
             }
 
-            if( ApiMock.isContactOnline(user.username)) {
-                contact.Text = ":-) " + user.displayName;
-            } else {
-                contact.Text = ":-( " + user.displayName;
-            }
+            contact.Text = user.displayName;
             contact.Tag = user;
             contact.Click += new EventHandler(label_Click); 
             contact.Width = contactFlowPanel.Width - 15;
@@ -90,10 +78,16 @@ namespace PostboxCommunicator {
 
         private void label_Click(object sender, EventArgs e) {
             Label label = (Label)sender;
+
             ConversationView conversation = new ConversationView((UserModel)label.Tag);
-            UserModel user = (UserModel)label.Tag;
-            conversations.Add(user.username, conversation);
+            if (Application.OpenForms.OfType<ConversationView>().Count() == 1)
+                Application.OpenForms.OfType<ConversationView>().First().Close();
             conversation.Show();
+        }
+
+        private void helpButton_Click(object sender, EventArgs e) {
+            HelpView help = new HelpView();
+            help.Show();
         }
 
         public Boolean isOpen(String sender){
@@ -103,10 +97,10 @@ namespace PostboxCommunicator {
             return false;
         }
 
-        public ConversationView getConversation(String sender)
-        {
+        public ConversationView getConversation(String sender) {
             return conversations[sender];
         }
+
         private void ContactListView_FormClosed(object sender, FormClosedEventArgs e) {
             LogInView loginView = new LogInView();
             loginView.Show();
@@ -117,6 +111,7 @@ namespace PostboxCommunicator {
 
             this.closeAllFormsExceptMain();
         }
+
 
         //https://stackoverflow.com/a/9029389/6139118
         private void closeAllFormsExceptMain() {
@@ -129,6 +124,15 @@ namespace PostboxCommunicator {
                     formsList[i].Close();
                 }
             }
+        }
+
+        public void updateOnlineUsers(List<string> clients) {
+            Invoke((MethodInvoker)(() =>
+                {
+                    
+                //code for showing if a user is online.
+                }
+            ));
         }
     }
 }

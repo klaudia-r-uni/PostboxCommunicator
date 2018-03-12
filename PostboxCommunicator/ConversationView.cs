@@ -4,99 +4,115 @@ using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using PostboxCommunicator.Infrastructure;
 
 namespace PostboxCommunicator {
-    partial class ConversationView : Form {
-        private ArrayList messages;
+    public partial class ConversationView : Form {
         private UserModel interlocutorModel;
-        private const int NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL = 2;
+        ClientServerCommunication server;
+        private List<MessageModel> newMessageBuffer;
+        private Boolean loadingMessages;
+        //get greatest id for convo.
+        private int messageLower = 1200;
+
+
 
         public ConversationView(UserModel interlocutorModel) {
+            server = ClientServerCommunication.Instance;
             this.interlocutorModel = interlocutorModel;
-            this.messages = new ArrayList();
+            loadingMessages = false;
 
             InitializeComponent();
-            this.background.MouseWheel += background_MouseWheel;
+            background.MouseWheel += background_MouseWheel;
 
-            this.Text = interlocutorModel.displayName;
+            newMessageBuffer = new List<MessageModel>();
+
+            Text = interlocutorModel.displayName;
 
             background.BackColor = Color.FromArgb(255, 212, 213, 214);
             footerPanel.BackColor = Color.FromArgb(255, 212, 213, 214);
-
-            this.displayMessages();
+            displayMessages();
             messageContentField.Focus();
+
         }
 
         private void handleScroll(object sender, ScrollEventArgs scroll = null, MouseEventArgs wheel = null) {
             //@TODO optimize 
             if (scroll != null) {
+
                 if (scroll.NewValue < 5) {
-                    this.loadMoreMessages();
+                    loadMoreMessages();
                 }
             }
-            if (wheel != null) {
+            else if (wheel != null) {
                 if (background.VerticalScroll.Value < 5) {
-                    this.loadMoreMessages();
+                    loadMoreMessages();
                 }
             }
         }
 
-        private int cnt = 0;
-        private void loadMoreMessages() {
-            ArrayList messages = this.getArrayListOfMessages();
+        private async void loadMoreMessages() {
+            if (loadingMessages) {
+                return;
+            }
 
-            this.messagesGrid.Visible = false;
-            //shift everything
-            int rowCount = this.messagesGrid.RowCount-1;
-            this.messagesGrid.RowCount += NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL;
-            for (int i=rowCount-1; i>=0; --i) {
-                Control row = this.messagesGrid.GetControlFromPosition(0, i);
-                this.messagesGrid.SetRow(row, i + NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL);
+            loadingMessages = true;
+
+            if (newMessageBuffer.Count == 0) {
+                newMessageBuffer.Clear();
+                newMessageBuffer = await getArrayListOfMessages();
             }
-            //insert new rows at the beginning 
-            for (int i = NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL; i >= 0; i--) {
-                ((MessageModel)messages[i]).content = (++cnt).ToString();
-                FlowLayoutPanel messageContainer = this.attachMessage((MessageModel)messages[i]);
-                this.messagesGrid.Controls.Add(messageContainer, 0, 0);
+
+            //sets message
+            MessageModel message = newMessageBuffer[0];
+            newMessageBuffer.RemoveAt(0);
+
+            //attaches message to panel and sets rowStyle
+            FlowLayoutPanel messageContainer = attachMessage(message);
+            messagesGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, messageContainer.Height));
+
+            //adds row
+            messagesGrid.RowCount++;
+            //moves all the rows down one
+            foreach (Control c in messagesGrid.Controls) {
+                this.messagesGrid.SetRow(c, messagesGrid.GetRow(c) + 1);
             }
-            this.messagesGrid.Visible = true;
+
+            //adds message to messageGrid
+            messagesGrid.Controls.Add(messageContainer, 0, 0);
+
+            loadingMessages = false;
         }
 
-        private void displayMessages() {
-            ArrayList messages = this.getArrayListOfMessages();
-            foreach (MessageModel message in messages) {
-                FlowLayoutPanel messageContainer = this.attachMessage(message);
-                this.messagesGrid.Controls.Add(messageContainer, 0, this.messagesGrid.RowCount-1);
-                this.messagesGrid.RowCount++;
+        private async void displayMessages() {
+            messagesGrid.Visible = false;
 
+            List<MessageModel> messagesToDisplay = await getArrayListOfMessages();
+            messagesToDisplay.Reverse();
+            FlowLayoutPanel messageContainer = null;
+            foreach (MessageModel message in messagesToDisplay) {
+                messageContainer = this.attachMessage(message);
+                messagesGrid.Controls.Add(messageContainer);
             }
+
+            messagesGrid.Visible = true;
+            background.ScrollControlIntoView(messageContainer);
         }
 
-        private ArrayList getArrayListOfMessages() {
-            int numberOfMessagesToShow = 15;
+        private async Task<List<MessageModel>> getArrayListOfMessages() {
+            List<MessageModel> messagesFromServer = await server.getMessages(messageLower, server.client.username, interlocutorModel.username);
+            messageLower = messagesFromServer.Select(x => x.id).Min();
 
-            ArrayList messages = new ArrayList();
-
-            for (int i = 0; i < numberOfMessagesToShow; i++) {
-                MessageModel message = new MessageModel();
-
-                if (i % 2 == 0) {
-                    message.content = i.ToString() + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vestibulum accumsan eros, quis sodales leo suscipit vel. Duis finibus dictum laoreet. Ut lobortis odio libero, a vulputate nibh mattis eget. Quisque imperdiet, nisl sit amet dapibus lacinia, magna dui convallis ipsum, non dictum velit ligula et augue. Maecenas a ipsum risus. Praesent in dolor sapien. Etiam malesuada diam vitae magna posuere dapibus ac non arcu. Aliquam vehicula turpis mi, ac varius purus porttitor non. Nulla facilisi. Vestibulum laoreet sit amet metus non interdum. Nam libero elit, luctus nec ipsum non, molestie porta justo. Suspendisse ut tincidunt nunc. Vestibulum ultrices faucibus elit a dapibus. Sed fermentum, massa ut lacinia interdum, mauris sapien congue mi, vel imperdiet massa orci sagittis nulla. Aliquam eu facilisis dui, vel dapibus erat.";
-                    message.recipientId = ApplicationState.user.id;
-                    message.senderId = this.interlocutorModel.id;
-                } else {
-                    message.content = i.ToString() + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam vestibulum accumsan eros, quis sodales leo suscipit vel. Duis finibus dictum laoreet. Ut lobortis odio libero, a vulputate nibh mattis eget. Quisque imperdiet, nisl sit amet dapibus lacinia, magna dui convallis ipsum, non dictum velit ligula et augue. Maecenas a ipsum risus. Praesent in dolor sapien. Etiam malesuada diam vitae magna posuere dapibus ac non arcu. Aliquam vehicula turpis mi, ac varius purus porttitor non. Nulla facilisi. Vestibulum laoreet sit amet metus non interdum. Nam libero elit,";
-                    message.recipientId = interlocutorModel.id;
-                    message.senderId = ApplicationState.user.id;
-                }
-                messages.Add(message);
-            }
-            return messages;
+            return messagesFromServer;
         }
 
         private FlowLayoutPanel attachMessage(MessageModel message) {
             Label messageTime = new Label();
-            messageTime.Text = message.dateTime.ToString();
+            messageTime.Text = message.dateTime;
             messageTime.TextAlign = ContentAlignment.MiddleRight;
             messageTime.Padding = new Padding(0, 0, 10, 0);
 
@@ -115,21 +131,67 @@ namespace PostboxCommunicator {
             messageContainer.Controls.Add(messageTime);
             messageContainer.Controls.Add(authorsMessage);
 
-            //background.Controls.Add(messageContainer);
             return messageContainer;
         }
 
         private void ConversationView_Scroll(object sender, ScrollEventArgs e) {
-            this.handleScroll(sender, e, null);
+
+            handleScroll(sender, e, null);
         }
 
         private void background_MouseWheel(object sender, MouseEventArgs e) {
-            this.handleScroll(sender, null, e);
+            handleScroll(sender, null, e);
         }
 
-        private void background_Paint(object sender, PaintEventArgs e)
-        {
-
+        private void sendButton_Click(object sender, EventArgs e) {
+            string input = messageContentField.Text;
+            if (!string.IsNullOrWhiteSpace(input)) {
+                sendMessage(input);
+            }
         }
+
+        //https://stackoverflow.com/questions/661561/how-do-i-update-the-gui-from-another-thread
+        //above for how to implement cross thread ui updating
+        public void recMessage(MessageModel message){
+            Invoke((MethodInvoker)(() =>
+                {
+                    FlowLayoutPanel messageContainer = attachMessage(message);
+                    messagesGrid.Controls.Add(messageContainer);
+                    background.ScrollControlIntoView(messageContainer);
+                    messageContentField.Focus();
+                    messageContentField.Clear();
+                    messagesGrid.RowCount++;
+                }
+            ));   
+        }
+
+        public void sendMessage(string message) {
+
+            MessageModel sendMessage = new MessageModel();
+            sendMessage.content = message;
+            sendMessage.recipientId = interlocutorModel.username;
+            sendMessage.senderId = server.client.username;
+            sendMessage.dateTime = DateTime.Now.ToString();
+
+            server.sendMessage(sendMessage);
+            FlowLayoutPanel messageContainer = attachMessage(sendMessage);
+            messagesGrid.Controls.Add(messageContainer);
+            background.ScrollControlIntoView(messageContainer);
+            messageContentField.Focus();
+            messageContentField.Clear();
+            messagesGrid.RowCount++;
+        }
+
+        private void messageContentField_KeyUp(object sender, KeyEventArgs e) {
+            if (e.KeyCode == Keys.Enter) {
+                string input = messageContentField.Text;
+                if (!string.IsNullOrWhiteSpace(input)) {
+                    sendMessage(input);
+                }
+            }
+        }
+
+
+
     }
 }

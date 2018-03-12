@@ -50,7 +50,7 @@ namespace PostboxCommunicator.Infrastructure {
         }
 
         private void connect(){
-            sock = new WebSocket("ws://138.68.171.7");
+            sock = new WebSocket("ws://138.68.171.7:443");
 
             sock.OnOpen += (sender, e) => {
                 Console.WriteLine("onOpen");
@@ -60,13 +60,22 @@ namespace PostboxCommunicator.Infrastructure {
 
 
             sock.OnMessage += (sender, e) => {
-                MessageModel message  = JsonConvert.DeserializeObject<MessageModel>(e.Data);
-                if (contacts.isOpen(message.senderId)){
-                    contacts.getConversation(message.senderId).recMessage(message);
+                if (!e.Data.Contains("senderId")){
+                    var clients = JsonConvert.DeserializeObject<List<string>>(e.Data);
+                    clients.Remove(client.username);
+                    //contacts.updateOnlineUsers(clients);
                 }
                 else{
-                    System.Console.WriteLine("notification");
-                    //contacts.setNotification();
+                    MessageModel message = JsonConvert.DeserializeObject<MessageModel>(e.Data);
+                    if (contacts.isOpen(message.senderId))
+                    {
+                        contacts.getConversation(message.senderId).recMessage(message);
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("notification");
+                        //contacts.setNotification();
+                    }
                 }
             };
         }
@@ -118,19 +127,9 @@ namespace PostboxCommunicator.Infrastructure {
             this.contacts = contacts;
         }
 
-
-
-
-        //connect to server
-        //login
-
-        //if login successful
-        //start web socket connection
-        //successful?
-        //get list of users
-        //broadcast who's online
-
-        //send message
-        //rec message
+        public void logout(){
+            var json = $"{{ \"disconnect\": \"{client.username}\"}}";
+            sock.Send(json);
+        }
     }
 }
