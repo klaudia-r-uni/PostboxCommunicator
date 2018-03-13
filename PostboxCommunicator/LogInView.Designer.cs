@@ -24,13 +24,13 @@
         /// </summary>
         private void InitializeComponent() {
             this.logInBackgroundPanel = new System.Windows.Forms.Panel();
+            this.labelError2 = new System.Windows.Forms.Label();
+            this.labelError1 = new System.Windows.Forms.Label();
             this.sendButton = new System.Windows.Forms.Button();
             this.passwordInput = new System.Windows.Forms.TextBox();
             this.loginInput = new System.Windows.Forms.TextBox();
             this.passwordLabel = new System.Windows.Forms.Label();
             this.loginLabel = new System.Windows.Forms.Label();
-            this.labelError1 = new System.Windows.Forms.Label();
-            this.labelError2 = new System.Windows.Forms.Label();
             this.logInBackgroundPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,15 +45,31 @@
             this.logInBackgroundPanel.Controls.Add(this.passwordLabel);
             this.logInBackgroundPanel.Controls.Add(this.loginLabel);
             this.logInBackgroundPanel.Location = new System.Drawing.Point(29, 27);
-            this.logInBackgroundPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.logInBackgroundPanel.Margin = new System.Windows.Forms.Padding(4);
             this.logInBackgroundPanel.Name = "logInBackgroundPanel";
             this.logInBackgroundPanel.Size = new System.Drawing.Size(545, 215);
             this.logInBackgroundPanel.TabIndex = 0;
             // 
+            // labelError2
+            // 
+            this.labelError2.AutoSize = true;
+            this.labelError2.Location = new System.Drawing.Point(82, 182);
+            this.labelError2.Name = "labelError2";
+            this.labelError2.Size = new System.Drawing.Size(0, 17);
+            this.labelError2.TabIndex = 6;
+            // 
+            // labelError1
+            // 
+            this.labelError1.AutoSize = true;
+            this.labelError1.Location = new System.Drawing.Point(79, 148);
+            this.labelError1.Name = "labelError1";
+            this.labelError1.Size = new System.Drawing.Size(0, 17);
+            this.labelError1.TabIndex = 5;
+            // 
             // sendButton
             // 
             this.sendButton.Location = new System.Drawing.Point(392, 148);
-            this.sendButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sendButton.Margin = new System.Windows.Forms.Padding(4);
             this.sendButton.Name = "sendButton";
             this.sendButton.Size = new System.Drawing.Size(100, 28);
             this.sendButton.TabIndex = 4;
@@ -64,7 +80,7 @@
             // passwordInput
             // 
             this.passwordInput.Location = new System.Drawing.Point(187, 92);
-            this.passwordInput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.passwordInput.Margin = new System.Windows.Forms.Padding(4);
             this.passwordInput.Name = "passwordInput";
             this.passwordInput.Size = new System.Drawing.Size(305, 22);
             this.passwordInput.TabIndex = 3;
@@ -73,7 +89,7 @@
             // loginInput
             // 
             this.loginInput.Location = new System.Drawing.Point(187, 48);
-            this.loginInput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.loginInput.Margin = new System.Windows.Forms.Padding(4);
             this.loginInput.Name = "loginInput";
             this.loginInput.Size = new System.Drawing.Size(305, 22);
             this.loginInput.TabIndex = 2;
@@ -101,31 +117,13 @@
             this.loginLabel.TabIndex = 0;
             this.loginLabel.Text = "Login";
             // 
-            // labelError1
-            // 
-            this.labelError1.AutoSize = true;
-            this.labelError1.Location = new System.Drawing.Point(79, 148);
-            this.labelError1.Name = "labelError1";
-            this.labelError1.Size = new System.Drawing.Size(46, 17);
-            this.labelError1.TabIndex = 5;
-            this.labelError1.Text = "label1";
-            // 
-            // labelError2
-            // 
-            this.labelError2.AutoSize = true;
-            this.labelError2.Location = new System.Drawing.Point(82, 182);
-            this.labelError2.Name = "labelError2";
-            this.labelError2.Size = new System.Drawing.Size(46, 17);
-            this.labelError2.TabIndex = 6;
-            this.labelError2.Text = "label2";
-            // 
             // LogInView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(613, 258);
             this.Controls.Add(this.logInBackgroundPanel);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(631, 305);
             this.MinimumSize = new System.Drawing.Size(631, 305);
