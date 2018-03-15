@@ -1,12 +1,10 @@
 ﻿using PostboxCommunicator.Controllers;
 using PostboxCommunicator.Models;
-using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using PostboxCommunicator.Infrastructure;
 
@@ -18,8 +16,6 @@ namespace PostboxCommunicator {
         private Boolean loadingMessages;
         //get greatest id for convo.
         private int messageLower = 1200;
-
-
 
         public ConversationView(UserModel interlocutorModel) {
             server = ClientServerCommunication.Instance;

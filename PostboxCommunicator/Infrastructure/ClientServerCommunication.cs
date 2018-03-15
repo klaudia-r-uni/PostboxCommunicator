@@ -63,7 +63,7 @@ namespace PostboxCommunicator.Infrastructure {
                 if (!e.Data.Contains("senderId")){
                     var clients = JsonConvert.DeserializeObject<List<string>>(e.Data);
                     clients.Remove(client.username);
-                    //contacts.updateOnlineUsers(clients);
+                    contacts.updateOnlineUsers(clients);
                 }
                 else{
                     MessageModel message = JsonConvert.DeserializeObject<MessageModel>(e.Data);

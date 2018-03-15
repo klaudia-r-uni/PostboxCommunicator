@@ -47,8 +47,8 @@ namespace PostboxCommunicator {
             foreach( UserModel user in users) {
                 if (!user.username.Equals(server.client.username)){
                     this.addNewContactToList(user, i);
+                    i++;
                 }
-                i++;
             }
         }
 
@@ -105,6 +105,7 @@ namespace PostboxCommunicator {
 
         private void ContactListView_FormClosed(object sender, FormClosedEventArgs e) {
             LogInView loginView = new LogInView();
+            server.logout();
             loginView.Show();
         }
 
@@ -128,13 +129,23 @@ namespace PostboxCommunicator {
             }
         }
 
-        public void updateOnlineUsers(List<string> clients) {
+        public void updateOnlineUsers(List<string> usersOnline) {
             Invoke((MethodInvoker)(() =>
                 {
-                    
-                //code for showing if a user is online.
+                    usersOnline.ForEach(markUserOnline);
                 }
             ));
+        }
+
+        private void markUserOnline(String user){
+            foreach (Control control in contactFlowPanel.Controls){
+                if (control.GetType() == typeof(Label)){
+                    if (control.Text.Equals(user))
+                    {
+                        control.BackColor = Color.FromArgb(255, 255, 250, 139);
+                    }
+                }
+            }
         }
     }
 }
