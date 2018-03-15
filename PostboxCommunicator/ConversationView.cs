@@ -1,12 +1,10 @@
 ﻿using PostboxCommunicator.Controllers;
 using PostboxCommunicator.Models;
-using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using PostboxCommunicator.Infrastructure;
 
@@ -18,8 +16,6 @@ namespace PostboxCommunicator {
         private Boolean loadingMessages;
         //get greatest id for convo.
         private int messageLower = 1200;
-
-
 
         public ConversationView(UserModel interlocutorModel) {
             server = ClientServerCommunication.Instance;
@@ -67,37 +63,46 @@ namespace PostboxCommunicator {
                 newMessageBuffer = await getArrayListOfMessages();
             }
 
-            //sets message
-            MessageModel message = newMessageBuffer[0];
-            newMessageBuffer.RemoveAt(0);
+            if (newMessageBuffer.Any()){
+                //sets message
+                MessageModel message = newMessageBuffer[0];
+                newMessageBuffer.RemoveAt(0);
 
-            //attaches message to panel and sets rowStyle
-            FlowLayoutPanel messageContainer = attachMessage(message);
-            messagesGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, messageContainer.Height));
+                //attaches message to panel and sets rowStyle
+                FlowLayoutPanel messageContainer = attachMessage(message);
+                messagesGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, messageContainer.Height));
 
-            //adds row
-            messagesGrid.RowCount++;
-            //moves all the rows down one
-            foreach (Control c in messagesGrid.Controls) {
-                this.messagesGrid.SetRow(c, messagesGrid.GetRow(c) + 1);
+                //adds row
+                messagesGrid.RowCount++;
+
+                //moves all the rows down one
+                foreach (Control c in messagesGrid.Controls) {
+                    this.messagesGrid.SetRow(c, messagesGrid.GetRow(c) + 1);
+                }
+
+                //adds message to messageGrid
+                messagesGrid.Controls.Add(messageContainer, 0, 0);
+
+                loadingMessages = false;
+
             }
-
-            //adds message to messageGrid
-            messagesGrid.Controls.Add(messageContainer, 0, 0);
-
-            loadingMessages = false;
+            
         }
 
         private async void displayMessages() {
             messagesGrid.Visible = false;
+            FlowLayoutPanel messageContainer = null;
 
             List<MessageModel> messagesToDisplay = await getArrayListOfMessages();
-            messagesToDisplay.Reverse();
-            FlowLayoutPanel messageContainer = null;
-            foreach (MessageModel message in messagesToDisplay) {
-                messageContainer = this.attachMessage(message);
-                messagesGrid.Controls.Add(messageContainer);
-            }
+
+            if (messagesToDisplay.Any()){
+                messagesToDisplay.Reverse();
+
+                foreach (MessageModel message in messagesToDisplay) {
+                    messageContainer = this.attachMessage(message);
+                    messagesGrid.Controls.Add(messageContainer);
+                }
+            }           
 
             messagesGrid.Visible = true;
             background.ScrollControlIntoView(messageContainer);
@@ -105,7 +110,9 @@ namespace PostboxCommunicator {
 
         private async Task<List<MessageModel>> getArrayListOfMessages() {
             List<MessageModel> messagesFromServer = await server.getMessages(messageLower, server.client.username, interlocutorModel.username);
-            messageLower = messagesFromServer.Select(x => x.id).Min();
+            if (messagesFromServer.Any()){
+                messageLower = messagesFromServer.Select(x => x.id).Min();
+            }
 
             return messagesFromServer;
         }

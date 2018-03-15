@@ -47,8 +47,8 @@ namespace PostboxCommunicator {
             foreach( UserModel user in users) {
                 if (!user.username.Equals(server.client.username)){
                     this.addNewContactToList(user, i);
+                    i++;
                 }
-                i++;
             }
         }
 
@@ -80,8 +80,10 @@ namespace PostboxCommunicator {
             Label label = (Label)sender;
 
             ConversationView conversation = new ConversationView((UserModel)label.Tag);
-            if (Application.OpenForms.OfType<ConversationView>().Count() == 1)
-                Application.OpenForms.OfType<ConversationView>().First().Close();
+            //            if (Application.OpenForms.OfType<ConversationView>().Count() == 1)
+            //                Application.OpenForms.OfType<ConversationView>().First().Close();
+            UserModel user = (UserModel)label.Tag;
+            conversations.Add(user.username, conversation);
             conversation.Show();
         }
 
@@ -103,6 +105,7 @@ namespace PostboxCommunicator {
 
         private void ContactListView_FormClosed(object sender, FormClosedEventArgs e) {
             LogInView loginView = new LogInView();
+            server.logout();
             loginView.Show();
         }
 
@@ -126,13 +129,23 @@ namespace PostboxCommunicator {
             }
         }
 
-        public void updateOnlineUsers(List<string> clients) {
+        public void updateOnlineUsers(List<string> usersOnline) {
             Invoke((MethodInvoker)(() =>
                 {
-                    
-                //code for showing if a user is online.
+                    usersOnline.ForEach(markUserOnline);
                 }
             ));
+        }
+
+        private void markUserOnline(String user){
+            foreach (Control control in contactFlowPanel.Controls){
+                if (control.GetType() == typeof(Label)){
+                    if (control.Text.Equals(user))
+                    {
+                        control.BackColor = Color.FromArgb(255, 255, 250, 139);
+                    }
+                }
+            }
         }
     }
 }

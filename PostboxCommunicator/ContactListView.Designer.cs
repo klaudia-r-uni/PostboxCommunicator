@@ -125,9 +125,8 @@
             this.logOutButton.TabIndex = 0;
             this.logOutButton.Text = "Log out!";
             this.logOutButton.UseVisualStyleBackColor = true;
-
             // 
-            // MainWindow
+            // ContactListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -139,6 +138,7 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "ContactListView";
             this.Text = "Secure Messaging System";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ContactListView_FormClosed);
             this.menuPanel.ResumeLayout(false);
             this.menuPanel.PerformLayout();
             this.contactListPanel.ResumeLayout(false);
