@@ -80,8 +80,9 @@ namespace PostboxCommunicator {
             Label label = (Label)sender;
 
             ConversationView conversation = new ConversationView((UserModel)label.Tag);
-            //            if (Application.OpenForms.OfType<ConversationView>().Count() == 1)
-            //                Application.OpenForms.OfType<ConversationView>().First().Close();
+            if (Application.OpenForms.OfType<ConversationView>().Count() == 1) {
+                Application.OpenForms.OfType<ConversationView>().First().Close();
+            }
             UserModel user = (UserModel)label.Tag;
             conversations.Add(user.username, conversation);
             conversation.Show();
