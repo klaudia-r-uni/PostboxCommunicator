@@ -116,7 +116,6 @@
     <Compile Include="ContactListView.Designer.cs">
       <DependentUpon>ContactListView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Mocks\ApiMock.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MessageModel.cs" />
     <Compile Include="Models\UserModel.cs" />

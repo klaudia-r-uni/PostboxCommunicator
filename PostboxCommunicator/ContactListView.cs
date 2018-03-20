@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using PostboxCommunicator.Infrastructure;
-using PostboxCommunicator.Mocks;
 
 namespace PostboxCommunicator {
     public partial class ContactListView : Form{
