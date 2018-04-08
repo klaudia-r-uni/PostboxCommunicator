@@ -13,14 +13,16 @@ namespace PostboxCommunicator {
         private UserModel interlocutorModel;
         ClientServerCommunication server;
         private List<MessageModel> newMessageBuffer;
-        private Boolean loadingMessages;
-        //get greatest id for convo.
-        private int messageLower = 1200;
+        private bool loadingMessages;
+        private int messageLower = int.MaxValue;
+        private ContactListView contacts;
 
-        public ConversationView(UserModel interlocutorModel) {
+        public ConversationView(UserModel interlocutorModel, ContactListView contacts) {
             server = ClientServerCommunication.Instance;
             this.interlocutorModel = interlocutorModel;
             loadingMessages = false;
+
+            this.contacts = contacts;
 
             InitializeComponent();
             background.MouseWheel += background_MouseWheel;
@@ -52,14 +54,14 @@ namespace PostboxCommunicator {
         }
 
         private async void loadMoreMessages() {
-            if (loadingMessages) {
-                return;
-            }
-
+            //If loading messages don't load anymore.
+            if (loadingMessages) return;
+            
             loadingMessages = true;
 
             if (newMessageBuffer.Count == 0) {
-                newMessageBuffer.Clear();
+                //if random newer message appears in older messages uncomment line below.
+                //newMessageBuffer.Clear();
                 newMessageBuffer = await getArrayListOfMessages();
             }
 
@@ -77,7 +79,7 @@ namespace PostboxCommunicator {
 
                 //moves all the rows down one
                 foreach (Control c in messagesGrid.Controls) {
-                    this.messagesGrid.SetRow(c, messagesGrid.GetRow(c) + 1);
+                    messagesGrid.SetRow(c, messagesGrid.GetRow(c) + 1);
                 }
 
                 //adds message to messageGrid
@@ -99,7 +101,7 @@ namespace PostboxCommunicator {
                 messagesToDisplay.Reverse();
 
                 foreach (MessageModel message in messagesToDisplay) {
-                    messageContainer = this.attachMessage(message);
+                    messageContainer = attachMessage(message);
                     messagesGrid.Controls.Add(messageContainer);
                 }
             }           
@@ -173,7 +175,6 @@ namespace PostboxCommunicator {
         }
 
         public void sendMessage(string message) {
-
             MessageModel sendMessage = new MessageModel();
             sendMessage.content = message;
             sendMessage.recipientId = interlocutorModel.username;
@@ -198,6 +199,10 @@ namespace PostboxCommunicator {
             }
         }
 
+        private void ConversationView_FormClosed(object sender, FormClosedEventArgs e) {
+            contacts.conversationClosed(interlocutorModel);
+
+        }
 
 
     }
