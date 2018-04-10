@@ -20,7 +20,6 @@ namespace PostboxCommunicator {
         private int messageLower = 1200;
 
 
-        private const int NUMBER_OF_MESSAGES_TO_LOAD_ON_SCROLL = 5;
 
         public ConversationView(UserModel interlocutorModel) {
             server = ClientServerCommunication.Instance;
@@ -151,14 +150,6 @@ namespace PostboxCommunicator {
             }
         }
 
-        public void sendMessage(string message) {
-            MessageModel sendMessage = new MessageModel {
-                content = message,
-                recipientId = ApplicationState.user.id,
-                senderId = this.interlocutorModel.id,
-                dateTime = DateTime.Now
-            };
-
         //https://stackoverflow.com/questions/661561/how-do-i-update-the-gui-from-another-thread
         //above for how to implement cross thread ui updating
         public void recMessage(MessageModel message){
@@ -171,10 +162,7 @@ namespace PostboxCommunicator {
                     messageContentField.Clear();
                     messagesGrid.RowCount++;
                 }
-            ));
-            
-            
-           
+            ));   
         }
 
         public void sendMessage(string message) {
@@ -185,8 +173,6 @@ namespace PostboxCommunicator {
             sendMessage.senderId = server.client.username;
             sendMessage.dateTime = DateTime.Now.ToString();
 
-
-
             server.sendMessage(sendMessage);
             FlowLayoutPanel messageContainer = attachMessage(sendMessage);
             messagesGrid.Controls.Add(messageContainer);
@@ -194,7 +180,6 @@ namespace PostboxCommunicator {
             messageContentField.Focus();
             messageContentField.Clear();
             messagesGrid.RowCount++;
-
         }
 
         private void messageContentField_KeyUp(object sender, KeyEventArgs e) {

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using PostboxCommunicator.Infrastructure;
 
+
 namespace PostboxCommunicator {
     public partial class LogInView : Form {
         ClientServerCommunication server;
@@ -34,7 +35,19 @@ namespace PostboxCommunicator {
 
             LoginModel loginModel = new LoginModel();
             loginModel.username = loginInput.Text;
-            loginModel.password = passwordInput.Text;
+
+            string password = passwordInput.Text;
+
+            //string mySalt = BCrypt.Net.BCrypt.GenerateSalt();                     //generates salt
+            //string myHash = BCrypt.Net.BCrypt.HashPassword(password, mySalt);     //hashs password with salt
+            
+            //takes password inputted and verifys it with the hashed password thats stored in database
+           // if(BCrypt.Net.BCrypt.Verify(password, hashed)) {
+           //     textBox1.Text = "correct";
+            //}
+            //textBox1.Text = myHash;
+
+            loginModel.password = password;
             
 
 
@@ -74,10 +87,6 @@ namespace PostboxCommunicator {
 
         private bool credentialsValid(string login, string password) {
             return true; 
-        }
-
-        private void LogInView_FormClosed(object sender, FormClosedEventArgs e) {
-            Application.Exit();
         }
     }
 }
