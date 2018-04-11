@@ -5,13 +5,13 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using PostboxCommunicator.Infrastructure;
-using PostboxCommunicator.Mocks;
 
 namespace PostboxCommunicator {
     public partial class ContactListView : Form{
 
         private ClientServerCommunication server;
         private Dictionary<String, ConversationView> conversations;
+        private List<UserModel> users; 
 
         public ContactListView() {
 
@@ -42,7 +42,7 @@ namespace PostboxCommunicator {
 
         public async void fillContactList() {
             
-            List<UserModel> users = await server.getUsers();
+            users = await server.getUsers();
             int i = 0; 
             foreach( UserModel user in users) {
                 if (!user.username.Equals(server.client.username)){
@@ -98,6 +98,15 @@ namespace PostboxCommunicator {
                 return true;
             }
             return false;
+        }
+
+        public String getDisplayableNameOfUser(string userId) {
+            for (int i = 0; i < users.Count; i++) {
+                if (users.ElementAt(i).username == userId) {
+                    return users.ElementAt(i).displayName;
+                }
+            }
+            return null;
         }
 
         public ConversationView getConversation(String sender) {

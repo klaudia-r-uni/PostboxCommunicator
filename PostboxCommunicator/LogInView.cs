@@ -1,5 +1,4 @@
-﻿using PostboxCommunicator.Mocks;
-using PostboxCommunicator.Models;
+﻿using PostboxCommunicator.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,6 +10,7 @@ namespace PostboxCommunicator {
         ClientServerCommunication server;
         public LogInView() {
             InitializeComponent();
+            
             this.centerThePanel();
    
             logInBackgroundPanel.Anchor = AnchorStyles.None;
@@ -31,12 +31,9 @@ namespace PostboxCommunicator {
 
         private async void sendButton_Click(object sender, EventArgs e) {
 
-
             LoginModel loginModel = new LoginModel();
             loginModel.username = loginInput.Text;
             loginModel.password = passwordInput.Text;
-            
-
 
             try {
                 if (this.credentialsValid(loginModel.username, loginModel.password)) {
@@ -120,5 +117,8 @@ namespace PostboxCommunicator {
 
         }
 
+        private void LogInView_FormClosed(object sender, FormClosedEventArgs e) {
+            Application.Exit();
+        }
     }
 }
