@@ -10,6 +10,7 @@ namespace PostboxCommunicator {
 
         private ClientServerCommunication server;
         private Dictionary<String, ConversationView> conversations;
+        private List<UserModel> users; 
 
         public ContactListView() {
 
@@ -32,7 +33,7 @@ namespace PostboxCommunicator {
 
         public async void fillContactList() {
             
-            List<UserModel> users = await server.getUsers();
+            users = await server.getUsers();
             int i = 0; 
             foreach( UserModel user in users) {
                 if (!user.username.Equals(server.client.username)){
@@ -68,6 +69,10 @@ namespace PostboxCommunicator {
 
         private void label_Click(object sender, EventArgs e) {
             Label label = (Label)sender;
+            ConversationView conversation = new ConversationView((UserModel)label.Tag);
+            if (Application.OpenForms.OfType<ConversationView>().Count() == 1) {
+                Application.OpenForms.OfType<ConversationView>().First().Close();
+            }
             UserModel user = (UserModel)label.Tag;
             String senderString = user.username;
 
@@ -93,7 +98,16 @@ namespace PostboxCommunicator {
             return conversations.ContainsKey(sender);
         }
 
-        public ConversationView getConversation(string sender) {
+        public String getDisplayableNameOfUser(string userId) {
+            for (int i = 0; i < users.Count; i++) {
+                if (users.ElementAt(i).username == userId) {
+                    return users.ElementAt(i).displayName;
+                }
+            }
+            return null;
+        }
+
+        public ConversationView getConversation(String sender) {
             return conversations[sender];
         }
 

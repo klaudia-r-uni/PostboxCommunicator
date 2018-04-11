@@ -68,9 +68,12 @@ namespace PostboxCommunicator.Infrastructure {
                     if (contacts.isOpen(message.senderId)){
                         contacts.getConversation(message.senderId).recMessage(message);
                     }
-                    else{
-                        Console.WriteLine("notification");
-                        //contacts.setNotification();
+                    else
+                    {
+                        UserModel user = new UserModel();
+                        user.displayName = contacts.getDisplayableNameOfUser(message.senderId); 
+                        NotificationView notification = new NotificationView(user);
+                        notification.ShowDialog(); 
                     }
                 }
             };
