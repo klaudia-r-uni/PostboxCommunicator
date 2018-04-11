@@ -10,10 +10,6 @@ namespace PostboxCommunicator {
         ClientServerCommunication server;
         public LogInView() {
             InitializeComponent();
-            UserModel user = new UserModel();
-            user.displayName = "User1"; 
-            //NotificationView notification = new NotificationView(user);
-            //notification.ShowDialog(); 
             
             this.centerThePanel();
    
@@ -35,12 +31,9 @@ namespace PostboxCommunicator {
 
         private async void sendButton_Click(object sender, EventArgs e) {
 
-
             LoginModel loginModel = new LoginModel();
             loginModel.username = loginInput.Text;
             loginModel.password = passwordInput.Text;
-            
-
 
             try {
                 if (this.credentialsValid(loginModel.username, loginModel.password)) {
@@ -124,5 +117,8 @@ namespace PostboxCommunicator {
 
         }
 
+        private void LogInView_FormClosed(object sender, FormClosedEventArgs e) {
+            Application.Exit();
+        }
     }
 }
