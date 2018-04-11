@@ -27,7 +27,6 @@
             this.messageContentField = new System.Windows.Forms.RichTextBox();
             this.sendButton = new System.Windows.Forms.Button();
             this.footerPanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.background = new System.Windows.Forms.Panel();
             this.footerPanel.SuspendLayout();
             this.background.SuspendLayout();
@@ -78,23 +77,12 @@
             // 
             this.footerPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.footerPanel.Controls.Add(this.button1);
             this.footerPanel.Controls.Add(this.sendButton);
             this.footerPanel.Location = new System.Drawing.Point(0, 598);
             this.footerPanel.Name = "footerPanel";
             this.footerPanel.Padding = new System.Windows.Forms.Padding(2, 2, 2, 4);
             this.footerPanel.Size = new System.Drawing.Size(498, 32);
             this.footerPanel.TabIndex = 3;
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button1.Location = new System.Drawing.Point(2, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(101, 26);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Archive";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // background
             // 
@@ -131,7 +119,6 @@
         private System.Windows.Forms.RichTextBox messageContentField;
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.Panel footerPanel;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TableLayoutPanel messagesGrid;
         private System.Windows.Forms.Panel background;
     }
