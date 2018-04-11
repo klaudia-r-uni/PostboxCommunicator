@@ -45,6 +45,7 @@
             this.text.Location = new System.Drawing.Point(7, 21);
             this.text.Multiline = true;
             this.text.Name = "text";
+            this.text.ReadOnly = true;
             this.text.Size = new System.Drawing.Size(351, 74);
             this.text.TabIndex = 1;
             // 
