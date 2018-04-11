@@ -27,7 +27,6 @@
             this.messageContentField = new System.Windows.Forms.RichTextBox();
             this.sendButton = new System.Windows.Forms.Button();
             this.footerPanel = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.background = new System.Windows.Forms.Panel();
             this.footerPanel.SuspendLayout();
             this.background.SuspendLayout();
@@ -93,7 +92,6 @@
             // 
             this.footerPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.footerPanel.Controls.Add(this.button1);
             this.footerPanel.Controls.Add(this.sendButton);
             this.footerPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.footerPanel.Location = new System.Drawing.Point(0, 1146);
@@ -152,7 +150,6 @@
         private System.Windows.Forms.RichTextBox messageContentField;
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.Panel footerPanel;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TableLayoutPanel messagesGrid;
         private System.Windows.Forms.Panel background;
     }
