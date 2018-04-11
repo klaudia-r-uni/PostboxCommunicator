@@ -10,6 +10,11 @@ namespace PostboxCommunicator {
         ClientServerCommunication server;
         public LogInView() {
             InitializeComponent();
+            UserModel user = new UserModel();
+            user.displayName = "User1"; 
+            //NotificationView notification = new NotificationView(user);
+            //notification.ShowDialog(); 
+            
             this.centerThePanel();
    
             logInBackgroundPanel.Anchor = AnchorStyles.None;

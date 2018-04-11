@@ -73,8 +73,10 @@ namespace PostboxCommunicator.Infrastructure {
                     }
                     else
                     {
-                        System.Console.WriteLine("notification");
-                        //contacts.setNotification();
+                        UserModel user = new UserModel();
+                        user.displayName = contacts.getDisplayableNameOfUser(message.senderId); 
+                        NotificationView notification = new NotificationView(user);
+                        notification.ShowDialog(); 
                     }
                 }
             };
@@ -83,7 +85,6 @@ namespace PostboxCommunicator.Infrastructure {
         public void joinList(){
             var json = $"{{ \"connection\": \"{client.username}\"}}";
             sock.Send(json);
-            
         }
 
         public void sendMessage(MessageModel message){
