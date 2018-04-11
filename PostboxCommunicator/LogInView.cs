@@ -1,6 +1,5 @@
 ﻿using PostboxCommunicator.Models;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using PostboxCommunicator.Infrastructure;
@@ -8,6 +7,7 @@ using PostboxCommunicator.Infrastructure;
 namespace PostboxCommunicator {
     public partial class LogInView : Form {
         ClientServerCommunication server;
+
         public LogInView() {
             InitializeComponent();
             
@@ -30,28 +30,24 @@ namespace PostboxCommunicator {
         }
 
         private async void sendButton_Click(object sender, EventArgs e) {
-
             LoginModel loginModel = new LoginModel();
             loginModel.username = loginInput.Text;
             loginModel.password = passwordInput.Text;
 
             try {
-                if (this.credentialsValid(loginModel.username, loginModel.password)) {
-                    //ApiMock api = new ApiMock();
-                    //UserModel user = api.logUserIn(login, password);
+                if (this.credentialsValid(loginModel.username, loginModel.password)){
                     string error = await server.login(loginModel);
-                    Console.Out.WriteLine(error);
 
-                    if (error == "true")
+                    if (error == "")
                     {
-                        server.joinList();
-
                         ApplicationState.user = new UserModel();
                         ApplicationState.user.username = loginModel.username;
                         ApplicationState.user.displayName = loginModel.username;
                         ContactListView menu = new ContactListView();
                         menu.Show();
                         this.Hide();
+
+                        server.joinList();
                     }
                     else {
                         FeedbackView feedback = new FeedbackView();

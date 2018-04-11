@@ -23,8 +23,7 @@ namespace PostboxCommunicator.Infrastructure {
 
         //Singleton
         public static ClientServerCommunication Instance{
-            get
-            {
+            get{
                 return instance;
             }
             
@@ -38,37 +37,35 @@ namespace PostboxCommunicator.Infrastructure {
             var retObj = JObject.Parse(objString);
             var error = retObj["error"].ToString();
 
-            if (error == "") { 
-                connect();
-                client = new UserModel();
-                Console.WriteLine(retObj["result"]);
-                client.username = retObj["result"][0]["username"].ToString();
-                client.displayName = retObj["result"][0]["displayName"].ToString();
-                return "true";
-            }
-            return error;
+            if (error != "") return error;
+           
+            connect();
+            client = new UserModel();
+            client.username = retObj["result"][0]["username"].ToString();
+            client.displayName = retObj["result"][0]["displayName"].ToString();
+
+            return "";
         }
 
         private void connect(){
             sock = new WebSocket("ws://138.68.171.7:443");
 
             sock.OnOpen += (sender, e) => {
+                //To be left in as OnOpen cannot be empty.
                 Console.WriteLine("onOpen");
-                
             };
-            sock.Connect();
 
+            sock.Connect();
 
             sock.OnMessage += (sender, e) => {
                 if (!e.Data.Contains("senderId")){
-                    var clients = JsonConvert.DeserializeObject<List<string>>(e.Data);
-                    clients.Remove(client.username);
-                    contacts.updateOnlineUsers(clients);
+                    var onlineUsers = JsonConvert.DeserializeObject<List<string>>(e.Data);
+                    onlineUsers.Remove(client.username);
+                    contacts.updateOnlineUsers(onlineUsers);
                 }
                 else{
                     MessageModel message = JsonConvert.DeserializeObject<MessageModel>(e.Data);
-                    if (contacts.isOpen(message.senderId))
-                    {
+                    if (contacts.isOpen(message.senderId)){
                         contacts.getConversation(message.senderId).recMessage(message);
                     }
                     else
@@ -84,7 +81,7 @@ namespace PostboxCommunicator.Infrastructure {
 
         public void joinList(){
             var json = $"{{ \"connection\": \"{client.username}\"}}";
-            sock.Send(json);
+            sock.Send(json);  
         }
 
         public void sendMessage(MessageModel message){
@@ -93,18 +90,12 @@ namespace PostboxCommunicator.Infrastructure {
         }
 
         public async Task<List<UserModel>> getUsers() {
-            List<UserModel> users = new List<UserModel>();
-  
             HttpResponseMessage response = await hClient.GetAsync("api/getUsers");
-            users = JsonConvert.DeserializeObject<List<UserModel>>(response.Content.ReadAsStringAsync().Result);
-       
-            return users;
-            //check response successful.
-            //https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
+
+            return JsonConvert.DeserializeObject<List<UserModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
         public async Task<List<MessageModel>> getMessages(int upper, string sender, string receiver){
-
             var conversation = new[]{
                 new { senderId = sender, recipientId = receiver, upper = upper}
             };
@@ -112,15 +103,9 @@ namespace PostboxCommunicator.Infrastructure {
             var convData = JsonConvert.SerializeObject(conversation);
 
             StringContent content = new StringContent(convData, Encoding.UTF8, "application/json");
-            List<MessageModel> messages = new List<MessageModel>();
-
             HttpResponseMessage response = await hClient.PostAsync("api/getMessages", content);
 
-            messages = JsonConvert.DeserializeObject<List<MessageModel>>(response.Content.ReadAsStringAsync().Result);
-
-            return messages;
-            //check response successful.
-            //https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
+            return JsonConvert.DeserializeObject<List<MessageModel>>(response.Content.ReadAsStringAsync().Result);
         }
 
 
