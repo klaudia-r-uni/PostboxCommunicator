@@ -83,6 +83,7 @@
             this.passwordInput.Name = "passwordInput";
             this.passwordInput.Size = new System.Drawing.Size(230, 20);
             this.passwordInput.TabIndex = 3;
+            this.passwordInput.UseSystemPasswordChar = true;
             this.passwordInput.TextChanged += new System.EventHandler(this.passwordInput_TextChanged);
             // 
             // loginInput
