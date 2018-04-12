@@ -16,7 +16,7 @@ namespace PostboxCommunicator.Infrastructure {
         private WebSocket sock;
         public UserModel client;
         private ContactListView contacts;
-        
+
 
         private ClientServerCommunication() {
         }
@@ -26,7 +26,7 @@ namespace PostboxCommunicator.Infrastructure {
             get{
                 return instance;
             }
-            
+
         }
 
         public async Task<string> login (LoginModel loginDetails) {
@@ -38,7 +38,7 @@ namespace PostboxCommunicator.Infrastructure {
             var error = retObj["error"].ToString();
 
             if (error != "") return error;
-           
+
             connect();
             client = new UserModel();
             client.username = retObj["result"][0]["username"].ToString();
@@ -78,7 +78,7 @@ namespace PostboxCommunicator.Infrastructure {
 
         public void joinList(){
             var json = $"{{ \"connection\": \"{client.username}\"}}";
-            sock.Send(json);  
+            sock.Send(json);
         }
 
         public void sendMessage(MessageModel message){

@@ -39,7 +39,7 @@ namespace PostboxCommunicator {
         }
 
         private void handleScroll(object sender, ScrollEventArgs scroll = null, MouseEventArgs wheel = null) {
-            //@TODO optimize 
+            //@TODO optimize
             if (scroll != null) {
 
                 if (scroll.NewValue < 5) {
@@ -56,7 +56,7 @@ namespace PostboxCommunicator {
         private async void loadMoreMessages() {
             //If loading messages don't load anymore.
             if (loadingMessages) return;
-            
+
             loadingMessages = true;
 
             if (newMessageBuffer.Count == 0) {
@@ -88,7 +88,7 @@ namespace PostboxCommunicator {
                 loadingMessages = false;
 
             }
-            
+
         }
 
         private async void displayMessages() {
@@ -104,7 +104,7 @@ namespace PostboxCommunicator {
                     messageContainer = attachMessage(message);
                     messagesGrid.Controls.Add(messageContainer);
                 }
-            }           
+            }
 
             messagesGrid.Visible = true;
             background.ScrollControlIntoView(messageContainer);
@@ -171,7 +171,7 @@ namespace PostboxCommunicator {
                     messageContentField.Clear();
                     messagesGrid.RowCount++;
                 }
-            ));   
+            ));
         }
 
         public void sendMessage(string message) {

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using PostboxCommunicator.Infrastructure;
 
+
 namespace PostboxCommunicator {
     public partial class LogInView : Form {
         ClientServerCommunication server;
@@ -11,11 +12,11 @@ namespace PostboxCommunicator {
         public LogInView() {
             InitializeComponent();
             this.centerThePanel();
-   
+
             logInBackgroundPanel.Anchor = AnchorStyles.None;
             this.BackColor = Color.FromArgb(255, 212, 213, 214);
             logInBackgroundPanel.BackColor = Color.FromArgb(255, 159, 170, 218);
-            loginLabel.ForeColor = Color.FromArgb(255, 38, 78, 242); 
+            loginLabel.ForeColor = Color.FromArgb(255, 38, 78, 242);
             passwordLabel.ForeColor = Color.FromArgb(255, 38, 78, 242);
 
             server = ClientServerCommunication.Instance;
@@ -31,7 +32,21 @@ namespace PostboxCommunicator {
         private async void sendButton_Click(object sender, EventArgs e) {
             LoginModel loginModel = new LoginModel();
             loginModel.username = loginInput.Text;
-            loginModel.password = passwordInput.Text;
+
+            string password = passwordInput.Text;
+
+            //string mySalt = BCrypt.Net.BCrypt.GenerateSalt();                     //generates salt
+            //string myHash = BCrypt.Net.BCrypt.HashPassword(password, mySalt);     //hashs password with salt
+
+            //takes password inputted and verifys it with the hashed password thats stored in database
+           // if(BCrypt.Net.BCrypt.Verify(password, hashed)) {
+           //     textBox1.Text = "correct";
+            //}
+            //textBox1.Text = myHash;
+
+            loginModel.password = password;
+
+
 
             try {
                 if (this.credentialsValid(loginModel.username, loginModel.password)){
@@ -59,13 +74,13 @@ namespace PostboxCommunicator {
             }
             catch (Exception exception) {
                 FeedbackView feedback = new FeedbackView();
-                feedback.setCustomizedMessage(exception.Message); 
-                feedback.ShowDialog(); 
+                feedback.setCustomizedMessage(exception.Message);
+                feedback.ShowDialog();
             }
         }
 
         private bool credentialsValid(string login, string password) {
-            return true; 
+            return true;
         }
     }
 }

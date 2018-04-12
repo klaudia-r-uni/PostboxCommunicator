@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using PostboxCommunicator.Infrastructure;
+using PostboxCommunicator.Mocks;
 
 namespace PostboxCommunicator {
     public partial class ContactListView : Form{
@@ -31,7 +32,7 @@ namespace PostboxCommunicator {
         }
 
         public async void fillContactList() {
-            
+
             List<UserModel> users = await server.getUsers();
             foreach( UserModel user in users) {
                 if (!user.username.Equals(server.client.username)){
@@ -45,16 +46,16 @@ namespace PostboxCommunicator {
             int fontSize = 12;
 
             contact.Padding = new Padding(10, 4, 4, 4);
-            contact.TextAlign = ContentAlignment.MiddleLeft; 
+            contact.TextAlign = ContentAlignment.MiddleLeft;
             contact.Font = new Font("Arial", fontSize);
             contact.Height = fontSize * 3;
-            contact.Margin = new Padding(0, 2, 0, 2); 
+            contact.Margin = new Padding(0, 2, 0, 2);
             contact.BackColor = Color.FromArgb(255, 122, 138, 204);
 
 
             contact.Text = user.displayName;
             contact.Tag = user;
-            contact.Click += new EventHandler(label_Click); 
+            contact.Click += new EventHandler(label_Click);
             contact.Width = contactFlowPanel.Width - 15;
             contactFlowPanel.Controls.Add(contact);
         }
