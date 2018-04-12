@@ -24,8 +24,6 @@
         /// </summary>
         private void InitializeComponent() {
             this.logInBackgroundPanel = new System.Windows.Forms.Panel();
-            this.labelError2 = new System.Windows.Forms.Label();
-            this.labelError1 = new System.Windows.Forms.Label();
             this.sendButton = new System.Windows.Forms.Button();
             this.passwordInput = new System.Windows.Forms.TextBox();
             this.loginInput = new System.Windows.Forms.TextBox();
@@ -37,8 +35,6 @@
             // logInBackgroundPanel
             // 
             this.logInBackgroundPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.logInBackgroundPanel.Controls.Add(this.labelError2);
-            this.logInBackgroundPanel.Controls.Add(this.labelError1);
             this.logInBackgroundPanel.Controls.Add(this.sendButton);
             this.logInBackgroundPanel.Controls.Add(this.passwordInput);
             this.logInBackgroundPanel.Controls.Add(this.loginInput);
@@ -48,24 +44,6 @@
             this.logInBackgroundPanel.Name = "logInBackgroundPanel";
             this.logInBackgroundPanel.Size = new System.Drawing.Size(409, 175);
             this.logInBackgroundPanel.TabIndex = 0;
-            // 
-            // labelError2
-            // 
-            this.labelError2.AutoSize = true;
-            this.labelError2.Location = new System.Drawing.Point(62, 148);
-            this.labelError2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelError2.Name = "labelError2";
-            this.labelError2.Size = new System.Drawing.Size(0, 13);
-            this.labelError2.TabIndex = 6;
-            // 
-            // labelError1
-            // 
-            this.labelError1.AutoSize = true;
-            this.labelError1.Location = new System.Drawing.Point(59, 120);
-            this.labelError1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelError1.Name = "labelError1";
-            this.labelError1.Size = new System.Drawing.Size(0, 13);
-            this.labelError1.TabIndex = 5;
             // 
             // sendButton
             // 
@@ -83,8 +61,6 @@
             this.passwordInput.Name = "passwordInput";
             this.passwordInput.Size = new System.Drawing.Size(230, 20);
             this.passwordInput.TabIndex = 3;
-            this.passwordInput.UseSystemPasswordChar = true;
-            this.passwordInput.TextChanged += new System.EventHandler(this.passwordInput_TextChanged);
             // 
             // loginInput
             // 
@@ -92,7 +68,6 @@
             this.loginInput.Name = "loginInput";
             this.loginInput.Size = new System.Drawing.Size(230, 20);
             this.loginInput.TabIndex = 2;
-            this.loginInput.TextChanged += new System.EventHandler(this.loginInput_TextChanged);
             // 
             // passwordLabel
             // 
@@ -118,14 +93,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(461, 216);
+            this.ClientSize = new System.Drawing.Size(462, 218);
             this.Controls.Add(this.logInBackgroundPanel);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(477, 255);
-            this.MinimumSize = new System.Drawing.Size(477, 255);
+            this.MaximumSize = new System.Drawing.Size(478, 257);
+            this.MinimumSize = new System.Drawing.Size(478, 257);
             this.Name = "LogInView";
             this.Text = "Log in! ";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LogInView_FormClosed);
             this.logInBackgroundPanel.ResumeLayout(false);
             this.logInBackgroundPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -140,7 +114,5 @@
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.TextBox passwordInput;
         private System.Windows.Forms.TextBox loginInput;
-        private System.Windows.Forms.Label labelError2;
-        private System.Windows.Forms.Label labelError1;
     }
 }
