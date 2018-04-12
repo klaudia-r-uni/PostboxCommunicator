@@ -1,4 +1,4 @@
-﻿using PostboxCommunicator.Controllers;
+﻿
 using PostboxCommunicator.Models;
 using System.Drawing;
 using System.Windows.Forms;
@@ -26,7 +26,6 @@ namespace PostboxCommunicator {
 
             InitializeComponent();
             background.MouseWheel += background_MouseWheel;
-
             newMessageBuffer = new List<MessageModel>();
 
             Text = interlocutorModel.displayName;
@@ -45,8 +44,7 @@ namespace PostboxCommunicator {
                 if (scroll.NewValue < 5) {
                     loadMoreMessages();
                 }
-            }
-            else if (wheel != null) {
+            } else if (wheel != null) {
                 if (background.VerticalScroll.Value < 5) {
                     loadMoreMessages();
                 }
@@ -65,82 +63,61 @@ namespace PostboxCommunicator {
                 newMessageBuffer = await getArrayListOfMessages();
             }
 
-            if (newMessageBuffer.Any()){
+            if (newMessageBuffer.Any()) {
+                //adds row
+                messagesGrid.RowCount++;
                 //sets message
                 MessageModel message = newMessageBuffer[0];
                 newMessageBuffer.RemoveAt(0);
-
-                //attaches message to panel and sets rowStyle
-                FlowLayoutPanel messageContainer = attachMessage(message);
-                messagesGrid.RowStyles.Add(new RowStyle(SizeType.Absolute, messageContainer.Height));
-
-                //adds row
-                messagesGrid.RowCount++;
-
                 //moves all the rows down one
                 foreach (Control c in messagesGrid.Controls) {
                     messagesGrid.SetRow(c, messagesGrid.GetRow(c) + 1);
                 }
-
                 //adds message to messageGrid
-                messagesGrid.Controls.Add(messageContainer, 0, 0);
-
+                messagesGrid.Controls.Add(getMessageView(message), 0, 0);
                 loadingMessages = false;
-
             }
-            
+
         }
 
         private async void displayMessages() {
             messagesGrid.Visible = false;
-            FlowLayoutPanel messageContainer = null;
-
             List<MessageModel> messagesToDisplay = await getArrayListOfMessages();
 
-            if (messagesToDisplay.Any()){
+            if (messagesToDisplay.Any()) {
                 messagesToDisplay.Reverse();
 
                 foreach (MessageModel message in messagesToDisplay) {
                     messageContainer = attachMessage(message);
                     messagesGrid.Controls.Add(messageContainer);
                 }
-            }           
+            }
 
             messagesGrid.Visible = true;
-            background.ScrollControlIntoView(messageContainer);
+            //background.ScrollControlIntoView(messagesGrid.Controls[0]);
         }
 
         private async Task<List<MessageModel>> getArrayListOfMessages() {
             List<MessageModel> messagesFromServer = await server.getMessages(messageLower, server.client.username, interlocutorModel.username);
-            if (messagesFromServer.Any()){
+            if (messagesFromServer.Any()) {
                 messageLower = messagesFromServer.Select(x => x.id).Min();
             }
 
             return messagesFromServer;
         }
 
-        private FlowLayoutPanel attachMessage(MessageModel message) {
-            Label messageTime = new Label();
-            messageTime.Text = message.dateTime;
-            messageTime.TextAlign = ContentAlignment.MiddleRight;
-            messageTime.Padding = new Padding(0, 0, 10, 0);
+        private MessageView getMessageView(MessageModel message) {
+            MessageView messageView = new MessageView(message);
+            if (message.recipientId == ApplicationState.user.username) {
+                //blue
+                messageView.SetColour(Color.FromArgb(255, 159, 170, 218));
+            } else if (message.senderId == ApplicationState.user.username) {
+                //yellow
+                messageView.SetColour(Color.FromArgb(255, 255, 250, 139));
+            }
+            messageView.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 
-            MessageController controller = new MessageController();
-
-            TextBox authorsMessage = controller.getMessageBox(message, background);
-
-            FlowLayoutPanel messageContainer = new FlowLayoutPanel();
-            messageContainer.BackColor = authorsMessage.BackColor;
-
-            messageContainer.Width = authorsMessage.Width + 100;
-            messageContainer.Height = authorsMessage.Height + 50;
-
-            messageTime.Width = messageContainer.Width;
-
-            messageContainer.Controls.Add(messageTime);
-            messageContainer.Controls.Add(authorsMessage);
-
-            return messageContainer;
+            return messageView;
         }
 
         private void ConversationView_Scroll(object sender, ScrollEventArgs e) {
@@ -161,17 +138,17 @@ namespace PostboxCommunicator {
 
         //https://stackoverflow.com/questions/661561/how-do-i-update-the-gui-from-another-thread
         //above for how to implement cross thread ui updating
-        public void recMessage(MessageModel message){
+        public void recMessage(MessageModel message) {
             Invoke((MethodInvoker)(() =>
-                {
-                    FlowLayoutPanel messageContainer = attachMessage(message);
-                    messagesGrid.Controls.Add(messageContainer);
-                    background.ScrollControlIntoView(messageContainer);
-                    messageContentField.Focus();
-                    messageContentField.Clear();
-                    messagesGrid.RowCount++;
-                }
-            ));   
+            {
+                MessageView messageView = getMessageView(message);
+                messagesGrid.Controls.Add(messageView);
+                background.ScrollControlIntoView(messageView);
+                messageContentField.Focus();
+                messageContentField.Clear();
+                messagesGrid.RowCount++;
+            }
+            ));
         }
 
         public void sendMessage(string message) {
@@ -182,9 +159,9 @@ namespace PostboxCommunicator {
             sendMessage.dateTime = DateTime.Now.ToString();
 
             server.sendMessage(sendMessage);
-            FlowLayoutPanel messageContainer = attachMessage(sendMessage);
-            messagesGrid.Controls.Add(messageContainer);
-            background.ScrollControlIntoView(messageContainer);
+            MessageView messageView = getMessageView(sendMessage);
+            messagesGrid.Controls.Add(messageView);
+            background.ScrollControlIntoView(messageView);
             messageContentField.Focus();
             messageContentField.Clear();
             messagesGrid.RowCount++;

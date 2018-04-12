@@ -10,6 +10,7 @@ namespace PostboxCommunicator {
 
         public LogInView() {
             InitializeComponent();
+            
             this.centerThePanel();
    
             logInBackgroundPanel.Anchor = AnchorStyles.None;
@@ -66,6 +67,54 @@ namespace PostboxCommunicator {
 
         private bool credentialsValid(string login, string password) {
             return true; 
+        }
+
+        private void loginInput_TextChanged(object sender, EventArgs e)
+        {
+
+            labelError1.Text = "";
+            labelError2.Text = "";
+
+            hackcheck();
+        }
+
+        private void passwordInput_TextChanged(object sender, EventArgs e)
+        {
+
+            labelError1.Text = "";
+            labelError2.Text = "";
+
+            hackcheck();
+        }
+
+        public void hackcheck()
+        {
+
+            List<string> banned = new List<string>();
+            banned.Add("\"");
+            banned.Add("\b");
+            banned.Add("\n");
+            banned.Add("\r");
+            banned.Add("\t");
+            banned.Add("\\");
+            banned.Add("INSERT");
+            banned.Add("AND");
+            banned.Add("FROM");
+            banned.Add("WHERE");
+
+            foreach (var b in banned)
+            {
+                if (loginInput.Text.Contains(b) || passwordInput.Text.Contains(b))
+                {
+                    labelError2.Text = "Please stop trying to hack us :)";
+
+                }
+            }
+
+        }
+
+        private void LogInView_FormClosed(object sender, FormClosedEventArgs e) {
+            Application.Exit();
         }
     }
 }
