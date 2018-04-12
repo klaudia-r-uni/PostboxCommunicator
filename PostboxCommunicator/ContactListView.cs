@@ -33,16 +33,14 @@ namespace PostboxCommunicator {
         public async void fillContactList() {
             
             List<UserModel> users = await server.getUsers();
-            int i = 0; 
             foreach( UserModel user in users) {
                 if (!user.username.Equals(server.client.username)){
-                    addNewContactToList(user, i);
-                    i++;
+                    addNewContactToList(user);
                 }
             }
         }
 
-        private void addNewContactToList(UserModel user, int i) {
+        private void addNewContactToList(UserModel user) {
             Label contact = new Label();
             int fontSize = 12;
 
@@ -51,13 +49,8 @@ namespace PostboxCommunicator {
             contact.Font = new Font("Arial", fontSize);
             contact.Height = fontSize * 3;
             contact.Margin = new Padding(0, 2, 0, 2); 
+            contact.BackColor = Color.FromArgb(255, 122, 138, 204);
 
-            if( i % 2 == 0) {
-
-                contact.BackColor = Color.FromArgb(255, 122, 138, 204);
-            } else {
-                contact.BackColor = Color.FromArgb(255, 147, 160, 214);
-            }
 
             contact.Text = user.displayName;
             contact.Tag = user;
@@ -126,18 +119,18 @@ namespace PostboxCommunicator {
         public void updateOnlineUsers(List<string> usersOnline) {
             Invoke((MethodInvoker)(() =>
                 {
-                    usersOnline.ForEach(markUserOnline);
+                    foreach (Control control in contactFlowPanel.Controls) {
+                        if (control.GetType() == typeof(Label) && usersOnline.Contains(control.Text)) {
+                            control.BackColor = Color.FromArgb(255, 255, 250, 139);
+                        }
+                        else {
+                            control.BackColor = Color.FromArgb(255, 122, 138, 204);
+                        }
+                    }
                 }
             ));
         }
 
-        private void markUserOnline(string user){
-            foreach (Control control in contactFlowPanel.Controls){
-                if (control.GetType() == typeof(Label) && control.Text.Equals(user)) {
-                    control.BackColor = Color.FromArgb(255, 255, 250, 139);
-                }
-            }
-        }
 
         public void conversationClosed(UserModel user){
             conversations.Remove(user.username);
