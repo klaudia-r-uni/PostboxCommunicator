@@ -139,6 +139,7 @@
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "ContactListView";
             this.Text = "Secure Messaging System";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ContactListView_FormClosed);
             this.menuPanel.ResumeLayout(false);
             this.menuPanel.PerformLayout();
             this.contactListPanel.ResumeLayout(false);
