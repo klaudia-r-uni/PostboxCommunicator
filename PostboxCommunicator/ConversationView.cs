@@ -83,17 +83,20 @@ namespace PostboxCommunicator {
         private async void displayMessages() {
             messagesGrid.Visible = false;
             List<MessageModel> messagesToDisplay = await getArrayListOfMessages();
+            MessageView messageView = null;
 
             if (messagesToDisplay.Any()) {
                 messagesToDisplay.Reverse();
 
                 foreach (MessageModel message in messagesToDisplay) {
-                    messagesGrid.Controls.Add(getMessageView(message));
+                    messageView = getMessageView(message);
+                    messagesGrid.Controls.Add(messageView);
                 }
             }
 
             messagesGrid.Visible = true;
-            //background.ScrollControlIntoView(messagesGrid.Controls[0]);
+
+            //background.ScrollControlIntoView(messageView);
         }
 
         private async Task<List<MessageModel>> getArrayListOfMessages() {

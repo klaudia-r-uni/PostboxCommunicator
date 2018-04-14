@@ -47,7 +47,7 @@
             this.menuPanel.Location = new System.Drawing.Point(0, 0);
             this.menuPanel.Margin = new System.Windows.Forms.Padding(6);
             this.menuPanel.Name = "menuPanel";
-            this.menuPanel.Size = new System.Drawing.Size(754, 77);
+            this.menuPanel.Size = new System.Drawing.Size(814, 77);
             this.menuPanel.TabIndex = 0;
             // 
             // label2
@@ -87,23 +87,29 @@
             // 
             // contactListPanel
             // 
+            this.contactListPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.contactListPanel.BackColor = System.Drawing.Color.LightGray;
             this.contactListPanel.Controls.Add(this.contactFlowPanel);
             this.contactListPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.contactListPanel.Location = new System.Drawing.Point(0, 77);
             this.contactListPanel.Margin = new System.Windows.Forms.Padding(6);
             this.contactListPanel.Name = "contactListPanel";
-            this.contactListPanel.Size = new System.Drawing.Size(754, 1056);
+            this.contactListPanel.Size = new System.Drawing.Size(814, 1056);
             this.contactListPanel.TabIndex = 1;
             // 
             // contactFlowPanel
             // 
-            this.contactFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.contactFlowPanel.HorizontalScroll.Maximum = 0;
+            this.contactFlowPanel.AutoScroll = false;
+            this.contactFlowPanel.VerticalScroll.Visible = false;
+            this.contactFlowPanel.AutoScroll = true;
+            
+            this.contactFlowPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.contactFlowPanel.Location = new System.Drawing.Point(0, 0);
-            this.contactFlowPanel.Margin = new System.Windows.Forms.Padding(6);
+            this.contactFlowPanel.Margin = new System.Windows.Forms.Padding(0, 0, 0, 20);
             this.contactFlowPanel.Name = "contactFlowPanel";
-            this.contactFlowPanel.Padding = new System.Windows.Forms.Padding(10, 19, 10, 0);
-            this.contactFlowPanel.Size = new System.Drawing.Size(754, 1056);
+            this.contactFlowPanel.Padding = new System.Windows.Forms.Padding(10, 0, 5, 20);
+            this.contactFlowPanel.Size = new System.Drawing.Size(814, 1056);
             this.contactFlowPanel.TabIndex = 0;
             // 
             // footerPanel
@@ -113,7 +119,7 @@
             this.footerPanel.Location = new System.Drawing.Point(0, 1133);
             this.footerPanel.Margin = new System.Windows.Forms.Padding(6);
             this.footerPanel.Name = "footerPanel";
-            this.footerPanel.Size = new System.Drawing.Size(754, 73);
+            this.footerPanel.Size = new System.Drawing.Size(814, 73);
             this.footerPanel.TabIndex = 2;
             // 
             // logOutButton
@@ -125,14 +131,14 @@
             this.logOutButton.TabIndex = 0;
             this.logOutButton.Text = "Log out!";
             this.logOutButton.UseVisualStyleBackColor = true;
-
             // 
-            // MainWindow
+            // ContactListView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(754, 1212);
+            this.ClientSize = new System.Drawing.Size(814, 1216);
             this.Controls.Add(this.footerPanel);
             this.Controls.Add(this.contactListPanel);
             this.Controls.Add(this.menuPanel);
