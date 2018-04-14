@@ -102,6 +102,7 @@ namespace PostboxCommunicator {
         }
 
         private void ContactListView_FormClosed(object sender, FormClosedEventArgs e) {
+            closeAllFormsExceptMain();
             LogInView loginView = new LogInView();
             server.logout();
             loginView.Show();

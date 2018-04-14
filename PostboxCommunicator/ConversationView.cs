@@ -93,10 +93,10 @@ namespace PostboxCommunicator {
                     messagesGrid.Controls.Add(messageView);
                 }
             }
-
+            messagesGrid.ScrollControlIntoView(messageView);
             messagesGrid.Visible = true;
 
-            //background.ScrollControlIntoView(messageView);
+ 
         }
 
         private async Task<List<MessageModel>> getArrayListOfMessages() {
