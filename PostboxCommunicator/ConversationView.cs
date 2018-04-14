@@ -145,7 +145,7 @@ namespace PostboxCommunicator {
             {
                 MessageView messageView = getMessageView(message);
                 messagesGrid.Controls.Add(messageView);
-                background.ScrollControlIntoView(messageView);
+                messagesGrid.ScrollControlIntoView(messageView);
                 messageContentField.Focus();
                 messageContentField.Clear();
                 messagesGrid.RowCount++;
@@ -163,7 +163,7 @@ namespace PostboxCommunicator {
             server.sendMessage(sendMessage);
             MessageView messageView = getMessageView(sendMessage);
             messagesGrid.Controls.Add(messageView);
-            background.ScrollControlIntoView(messageView);
+            messagesGrid.ScrollControlIntoView(messageView);
             messageContentField.Focus();
             messageContentField.Clear();
             messagesGrid.RowCount++;
