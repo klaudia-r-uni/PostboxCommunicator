@@ -82,5 +82,9 @@ namespace PostboxCommunicator {
         private bool credentialsValid(string login, string password) {
             return true;
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e) {
+
+        }
     }
 }

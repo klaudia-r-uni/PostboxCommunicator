@@ -29,21 +29,19 @@
             this.loginInput = new System.Windows.Forms.TextBox();
             this.passwordLabel = new System.Windows.Forms.Label();
             this.loginLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.logInBackgroundPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // logInBackgroundPanel
             // 
             this.logInBackgroundPanel.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.logInBackgroundPanel.Controls.Add(this.textBox1);
             this.logInBackgroundPanel.Controls.Add(this.sendButton);
             this.logInBackgroundPanel.Controls.Add(this.passwordInput);
             this.logInBackgroundPanel.Controls.Add(this.loginInput);
             this.logInBackgroundPanel.Controls.Add(this.passwordLabel);
             this.logInBackgroundPanel.Controls.Add(this.loginLabel);
             this.logInBackgroundPanel.Location = new System.Drawing.Point(44, 42);
-            this.logInBackgroundPanel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.logInBackgroundPanel.Margin = new System.Windows.Forms.Padding(6);
             this.logInBackgroundPanel.Name = "logInBackgroundPanel";
             this.logInBackgroundPanel.Size = new System.Drawing.Size(818, 337);
             this.logInBackgroundPanel.TabIndex = 0;
@@ -51,7 +49,7 @@
             // sendButton
             // 
             this.sendButton.Location = new System.Drawing.Point(588, 231);
-            this.sendButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.sendButton.Margin = new System.Windows.Forms.Padding(6);
             this.sendButton.Name = "sendButton";
             this.sendButton.Size = new System.Drawing.Size(150, 44);
             this.sendButton.TabIndex = 4;
@@ -62,7 +60,7 @@
             // passwordInput
             // 
             this.passwordInput.Location = new System.Drawing.Point(280, 144);
-            this.passwordInput.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.passwordInput.Margin = new System.Windows.Forms.Padding(6);
             this.passwordInput.Name = "passwordInput";
             this.passwordInput.Size = new System.Drawing.Size(456, 31);
             this.passwordInput.TabIndex = 3;
@@ -70,7 +68,7 @@
             // loginInput
             // 
             this.loginInput.Location = new System.Drawing.Point(280, 75);
-            this.loginInput.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.loginInput.Margin = new System.Windows.Forms.Padding(6);
             this.loginInput.Name = "loginInput";
             this.loginInput.Size = new System.Drawing.Size(456, 31);
             this.loginInput.TabIndex = 2;
@@ -97,20 +95,13 @@
             this.loginLabel.TabIndex = 0;
             this.loginLabel.Text = "Login";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(4, 210);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(844, 31);
-            this.textBox1.TabIndex = 5;
-            // 
             // LogInView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 358);
             this.Controls.Add(this.logInBackgroundPanel);
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(930, 429);
             this.MinimumSize = new System.Drawing.Size(930, 429);
@@ -130,6 +121,5 @@
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.TextBox passwordInput;
         private System.Windows.Forms.TextBox loginInput;
-        private System.Windows.Forms.TextBox textBox1;
     }
 }
