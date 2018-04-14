@@ -31,11 +31,11 @@
             this.footerPanel.SuspendLayout();
             this.background.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // messagesGrid
-            // 
-            this.messagesGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            //
+            this.messagesGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.messagesGrid.AutoScroll = true;
             this.messagesGrid.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -50,10 +50,10 @@
             this.messagesGrid.Size = new System.Drawing.Size(490, 494);
             this.messagesGrid.TabIndex = 0;
             this.messagesGrid.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ConversationView_Scroll);
-            // 
+            //
             // messageContentField
-            // 
-            this.messageContentField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            //
+            this.messageContentField.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.messageContentField.Location = new System.Drawing.Point(0, 503);
             this.messageContentField.Name = "messageContentField";
@@ -61,9 +61,9 @@
             this.messageContentField.TabIndex = 1;
             this.messageContentField.Text = "";
             this.messageContentField.KeyUp += new System.Windows.Forms.KeyEventHandler(this.messageContentField_KeyUp);
-            // 
+            //
             // sendButton
-            // 
+            //
             this.sendButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.sendButton.Location = new System.Drawing.Point(388, 2);
             this.sendButton.Name = "sendButton";
@@ -72,10 +72,10 @@
             this.sendButton.Text = "Send";
             this.sendButton.UseVisualStyleBackColor = true;
             this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
-            // 
+            //
             // footerPanel
-            // 
-            this.footerPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            //
+            this.footerPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.footerPanel.Controls.Add(this.sendButton);
             this.footerPanel.Location = new System.Drawing.Point(0, 598);
@@ -83,11 +83,11 @@
             this.footerPanel.Padding = new System.Windows.Forms.Padding(2, 2, 2, 4);
             this.footerPanel.Size = new System.Drawing.Size(498, 32);
             this.footerPanel.TabIndex = 3;
-            // 
+            //
             // background
-            // 
-            this.background.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            //
+            this.background.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.background.AutoScroll = true;
             this.background.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -96,9 +96,9 @@
             this.background.Name = "background";
             this.background.Size = new System.Drawing.Size(494, 495);
             this.background.TabIndex = 1;
-            // 
+            //
             // ConversationView
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
@@ -108,6 +108,7 @@
             this.Controls.Add(this.background);
             this.Name = "ConversationView";
             this.Text = "ConversationView";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ConversationView_FormClosed);
             this.Scroll += new System.Windows.Forms.ScrollEventHandler(this.ConversationView_Scroll);
             this.footerPanel.ResumeLayout(false);
             this.background.ResumeLayout(false);

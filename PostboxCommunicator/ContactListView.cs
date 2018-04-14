@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
+using System.Linq;
 using PostboxCommunicator.Infrastructure;
 
 namespace PostboxCommunicator {
@@ -11,7 +11,7 @@ namespace PostboxCommunicator {
 
         private ClientServerCommunication server;
         private Dictionary<String, ConversationView> conversations;
-        private List<UserModel> users; 
+        private List<UserModel> users;
 
         public ContactListView() {
 
@@ -28,64 +28,55 @@ namespace PostboxCommunicator {
                 server.setContacts(this);
 
                 conversations = new Dictionary<String, ConversationView>();
-
-                //ConversationView conversation = new ConversationView();
-                //ArchiveView archive = new ArchiveView();
-                //FeedbackView feedback = new FeedbackView(); 
                 fillContactList();
-
-                //archive.Show();
-                //conversation.Show();
-                //feedback.Show();
             }
         }
 
         public async void fillContactList() {
-            
+
             users = await server.getUsers();
-            int i = 0; 
             foreach( UserModel user in users) {
                 if (!user.username.Equals(server.client.username)){
-                    this.addNewContactToList(user, i);
-                    i++;
+                    addNewContactToList(user);
                 }
             }
         }
 
-        private void addNewContactToList(UserModel user, int i) {
+        private void addNewContactToList(UserModel user) {
             Label contact = new Label();
             int fontSize = 12;
 
             contact.Padding = new Padding(10, 4, 4, 4);
-            contact.TextAlign = ContentAlignment.MiddleLeft; 
+            contact.TextAlign = ContentAlignment.MiddleLeft;
             contact.Font = new Font("Arial", fontSize);
             contact.Height = fontSize * 3;
-            contact.Margin = new Padding(0, 2, 0, 2); 
+            contact.Margin = new Padding(0, 2, 0, 2);
+            contact.BackColor = Color.FromArgb(255, 122, 138, 204);
 
-            if( i % 2 == 0) {
-
-                contact.BackColor = Color.FromArgb(255, 122, 138, 204);
-            } else {
-                contact.BackColor = Color.FromArgb(255, 147, 160, 214);
-            }
 
             contact.Text = user.displayName;
             contact.Tag = user;
-            contact.Click += new EventHandler(label_Click); 
+            contact.Click += new EventHandler(label_Click);
             contact.Width = contactFlowPanel.Width - 15;
             contactFlowPanel.Controls.Add(contact);
         }
 
         private void label_Click(object sender, EventArgs e) {
             Label label = (Label)sender;
-
-            ConversationView conversation = new ConversationView((UserModel)label.Tag);
-            if (Application.OpenForms.OfType<ConversationView>().Count() == 1) {
-                Application.OpenForms.OfType<ConversationView>().First().Close();
-            }
             UserModel user = (UserModel)label.Tag;
-            conversations.Add(user.username, conversation);
-            conversation.Show();
+            String senderString = user.username;
+
+            if (isOpen(senderString)) {
+                ConversationView conversation = getConversation(senderString);
+                conversation.WindowState = FormWindowState.Minimized;
+                conversation.Show();
+                conversation.WindowState = FormWindowState.Normal;
+            }
+            else {
+                ConversationView conversation = new ConversationView(user, this);
+                conversations.Add(user.username, conversation);
+                conversation.Show();
+            }
         }
 
         private void helpButton_Click(object sender, EventArgs e) {
@@ -93,11 +84,8 @@ namespace PostboxCommunicator {
             help.Show();
         }
 
-        public Boolean isOpen(String sender){
-            if (conversations.ContainsKey(sender)){
-                return true;
-            }
-            return false;
+        public bool isOpen(string sender){
+            return conversations.ContainsKey(sender);
         }
 
         public String getDisplayableNameOfUser(string userId) {
@@ -109,7 +97,7 @@ namespace PostboxCommunicator {
             return null;
         }
 
-        public ConversationView getConversation(String sender) {
+        public ConversationView getConversation(string sender) {
             return conversations[sender];
         }
 
@@ -142,20 +130,21 @@ namespace PostboxCommunicator {
         public void updateOnlineUsers(List<string> usersOnline) {
             Invoke((MethodInvoker)(() =>
                 {
-                    usersOnline.ForEach(markUserOnline);
+                    foreach (Control control in contactFlowPanel.Controls) {
+                        if (control.GetType() == typeof(Label) && usersOnline.Contains(control.Text)) {
+                            control.BackColor = Color.FromArgb(255, 255, 250, 139);
+                        }
+                        else {
+                            control.BackColor = Color.FromArgb(255, 122, 138, 204);
+                        }
+                    }
                 }
             ));
         }
 
-        private void markUserOnline(String user){
-            foreach (Control control in contactFlowPanel.Controls){
-                if (control.GetType() == typeof(Label)){
-                    if (control.Text.Equals(user))
-                    {
-                        control.BackColor = Color.FromArgb(255, 255, 250, 139);
-                    }
-                }
-            }
+
+        public void conversationClosed(UserModel user){
+            conversations.Remove(user.username);
         }
     }
 }

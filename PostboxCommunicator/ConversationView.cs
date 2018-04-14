@@ -13,14 +13,16 @@ namespace PostboxCommunicator {
         private UserModel interlocutorModel;
         ClientServerCommunication server;
         private List<MessageModel> newMessageBuffer;
-        private Boolean loadingMessages;
-        //get greatest id for convo.
-        private int messageLower = 1200;
+        private bool loadingMessages;
+        private int messageLower = int.MaxValue;
+        private ContactListView contacts;
 
-        public ConversationView(UserModel interlocutorModel) {
+        public ConversationView(UserModel interlocutorModel, ContactListView contacts) {
             server = ClientServerCommunication.Instance;
             this.interlocutorModel = interlocutorModel;
             loadingMessages = false;
+
+            this.contacts = contacts;
 
             InitializeComponent();
             background.MouseWheel += background_MouseWheel;
@@ -36,7 +38,7 @@ namespace PostboxCommunicator {
         }
 
         private void handleScroll(object sender, ScrollEventArgs scroll = null, MouseEventArgs wheel = null) {
-            //@TODO optimize 
+            //@TODO optimize
             if (scroll != null) {
 
                 if (scroll.NewValue < 5) {
@@ -50,14 +52,14 @@ namespace PostboxCommunicator {
         }
 
         private async void loadMoreMessages() {
-            if (loadingMessages) {
-                return;
-            }
+            //If loading messages don't load anymore.
+            if (loadingMessages) return;
 
             loadingMessages = true;
 
             if (newMessageBuffer.Count == 0) {
-                newMessageBuffer.Clear();
+                //if random newer message appears in older messages uncomment line below.
+                //newMessageBuffer.Clear();
                 newMessageBuffer = await getArrayListOfMessages();
             }
 
@@ -149,7 +151,6 @@ namespace PostboxCommunicator {
         }
 
         public void sendMessage(string message) {
-
             MessageModel sendMessage = new MessageModel();
             sendMessage.content = message;
             sendMessage.recipientId = interlocutorModel.username;
@@ -173,5 +174,12 @@ namespace PostboxCommunicator {
                 }
             }
         }
+
+        private void ConversationView_FormClosed(object sender, FormClosedEventArgs e) {
+            contacts.conversationClosed(interlocutorModel);
+
+        }
+
+
     }
 }

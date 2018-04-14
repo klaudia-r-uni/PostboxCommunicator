@@ -125,8 +125,9 @@
             this.logOutButton.TabIndex = 0;
             this.logOutButton.Text = "Log out!";
             this.logOutButton.UseVisualStyleBackColor = true;
+
             // 
-            // ContactListView
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
